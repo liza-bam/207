@@ -1,0 +1,189 @@
+/* ============================================================
+   SWEEP 207 — Design Tokens: Color & Type
+   Maine home cleaning & house-management brand
+   Load fonts via Google Fonts (see fonts note in README).
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+
+:root {
+  /* ---- Brand scale: teal → green analogous (from brand palette) ---- */
+  --teal-900: #00312D;  /* ink — primary text */
+  --teal-800: #004B45;
+  --teal-700: #005C58;  /* deep teal */
+  --teal-600: #007F7A;  /* teal */
+  --teal-500: #07A3A2;  /* cyan-teal */
+  --teal-400: #00D4A3;  /* PRIMARY — spring teal (the banner) */
+  --teal-300: #4FE3C0;
+  --teal-200: #9FF0DC;
+  --teal-100: #D6F8EF;
+
+  --brand:        #00D4A3;  /* primary action / brand fill */
+  --brand-strong: #00B589;  /* hover / pressed */
+  --brand-ink:    #00312D;  /* text/icon on light brand surfaces */
+
+  /* ---- Accents (use sparingly) ---- */
+  --lime:  #D6FF82;  /* soft highlight, badges, illustration pop */
+  --green: #00FF00;  /* high-energy accent — micro-use only */
+
+  /* ---- Neutrals (teal-tinted) ---- */
+  --paper:  #FFFFFF;
+  --bg:     #F4F8F6;  /* page background */
+  --bg-2:   #EAF2EF;  /* alt section background */
+  --bg-3:   #E0EBE7;
+  --line:   #E1EAE6;  /* hairline borders */
+  --line-2: #CFDED9;  /* stronger border */
+
+  /* ---- Foreground / text ---- */
+  --fg1: #00312D;  /* headings & primary body */
+  --fg2: #3F5C57;  /* secondary text */
+  --fg3: #6E8A85;  /* muted / captions */
+  --fg-on-brand: #00312D;  /* text on spring-teal */
+  --fg-on-dark:  #EAF7F2;  /* text on deep teal */
+
+  /* ---- Semantic ---- */
+  --success: #007F7A;
+  --success-bg: #D6F8EF;
+  --warning: #C77B12;
+  --warning-bg: #FBEFD6;
+  --danger: #C2453B;
+  --danger-bg: #FBE3E0;
+  --info: #07A3A2;
+
+  /* ---- Dark surface (footers / CTAs) ---- */
+  --ink-surface: #00312D;
+  --ink-surface-2: #00413A;
+
+  /* ============== Typography ============== */
+  --font-display: 'Bricolage Grotesque', 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-sans:    'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+
+  /* Type scale (px) */
+  --t-display: 64px;
+  --t-h1: 48px;
+  --t-h2: 36px;
+  --t-h3: 28px;
+  --t-h4: 22px;
+  --t-body-lg: 19px;
+  --t-body: 17px;
+  --t-small: 15px;
+  --t-caption: 13px;
+  --t-eyebrow: 13px;
+
+  --lh-tight: 1.05;
+  --lh-snug: 1.18;
+  --lh-normal: 1.55;
+  --lh-relaxed: 1.7;
+
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-eyebrow: 0.14em;
+
+  /* ============== Radii (kept deliberately small: 3 + pill) ============== */
+  --r-sm: 10px;   /* inputs, chips, small controls */
+  --r-md: 16px;   /* tiles, media, mid surfaces */
+  --r-lg: 24px;   /* cards & large surfaces */
+  --r-pill: 999px;/* buttons, badges, fully round */
+  /* legacy aliases */
+  --r-xl: var(--r-lg);
+  --r-2xl: var(--r-lg);
+
+  /* ============== Shadows (teal-tinted, soft) ============== */
+  --shadow-xs: 0 1px 2px rgba(0,49,45,0.06);
+  --shadow-sm: 0 2px 8px -2px rgba(0,49,45,0.10);
+  --shadow-md: 0 10px 28px -10px rgba(0,49,45,0.16);
+  --shadow-lg: 0 24px 56px -16px rgba(0,49,45,0.22);
+  --shadow-brand: 0 14px 30px -10px rgba(0,212,163,0.45);
+
+  /* ============== Spacing (4pt base) ============== */
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 20px; --sp-6: 24px; --sp-8: 32px; --sp-10: 40px;
+  --sp-12: 48px; --sp-16: 64px; --sp-20: 80px; --sp-24: 96px;
+  --sp-32: 128px;
+
+  /* ============== Motion ============== */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 140ms;
+  --dur: 220ms;
+  --dur-slow: 420ms;
+}
+
+/* ============================================================
+   Semantic element styles — opt in with .ds-prose or use vars
+   ============================================================ */
+.ds-type-display {
+  font-family: var(--font-display);
+  font-size: var(--t-display);
+  font-weight: 800;
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg1);
+}
+.ds-type-h1 {
+  font-family: var(--font-display);
+  font-size: var(--t-h1);
+  font-weight: 700;
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg1);
+}
+.ds-type-h2 {
+  font-family: var(--font-display);
+  font-size: var(--t-h2);
+  font-weight: 700;
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg1);
+}
+.ds-type-h3 {
+  font-family: var(--font-display);
+  font-size: var(--t-h3);
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--fg1);
+}
+.ds-type-h4 {
+  font-family: var(--font-sans);
+  font-size: var(--t-h4);
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--fg1);
+}
+.ds-type-body-lg {
+  font-family: var(--font-sans);
+  font-size: var(--t-body-lg);
+  font-weight: 400;
+  line-height: var(--lh-relaxed);
+  color: var(--fg2);
+}
+.ds-type-body {
+  font-family: var(--font-sans);
+  font-size: var(--t-body);
+  font-weight: 400;
+  line-height: var(--lh-normal);
+  color: var(--fg2);
+}
+.ds-type-small {
+  font-family: var(--font-sans);
+  font-size: var(--t-small);
+  font-weight: 400;
+  line-height: var(--lh-normal);
+  color: var(--fg2);
+}
+.ds-type-caption {
+  font-family: var(--font-sans);
+  font-size: var(--t-caption);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--fg3);
+}
+.ds-type-eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--t-eyebrow);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--teal-600);
+}
