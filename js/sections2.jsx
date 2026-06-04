@@ -45,51 +45,20 @@ function ReviewsFB() {
           <span className="eyebrow">Loved by locals</span>
           <h2 className="h2" style={{ marginTop: 12 }}>What Maine homeowners say</h2>
         </div>
-        <div className="reviews-layout">
-          <div className="review-grid">
-            {D2.REVIEWS.map((r, i) => (
-              <article key={i} className="review-card reveal-up" style={{ transitionDelay: (i % 2) * 60 + "ms" }}>
-                <div className="review-stars">{"★".repeat(r.stars)}</div>
-                <p className="review-text">“{r.text}”</p>
-                <div className="review-who">
-                  <span className="review-av" style={{ background: r.color }}>{r.name[0]}</span>
-                  <span>
-                    <span className="nm" style={{ display: "block" }}>{r.name}</span>
-                    <span className="mt">{r.meta}</span>
-                  </span>
-                </div>
-              </article>
-            ))}
-          </div>
-
-          <aside className="fb-card reveal-up" style={{ transitionDelay: "80ms" }}>
-            <div className="fb-head">
-              <span className="fb-logo"><Icon2 name="facebook" size={22} /></span>
-              <div>
-                <div className="fn">207 HouseKeeping</div>
-                <div className="fm">Facebook · @housekeeping207</div>
+        <div className="review-grid">
+          {D2.REVIEWS.map((r, i) => (
+            <article key={i} className="review-card reveal-up" style={{ transitionDelay: (i % 2) * 60 + "ms" }}>
+              <div className="review-stars">{"★".repeat(r.stars)}</div>
+              <p className="review-text">“{r.text}”</p>
+              <div className="review-who">
+                <span className="review-av" style={{ background: r.color }}>{r.name[0]}</span>
+                <span>
+                  <span className="nm" style={{ display: "block" }}>{r.name}</span>
+                  <span className="mt">{r.meta}</span>
+                </span>
               </div>
-              <a className="btn btn-sm btn-primary followbtn" href={D2.FB_URL} target="_blank" rel="noopener">Follow</a>
-            </div>
-            <div className="fb-embed">
-              <div className="fb-embed-fallback">
-                <Icon2 name="facebook" size={26} style={{ color: "#1877F2" }} />
-                <p>Our latest photos &amp; updates load here straight from Facebook.</p>
-                <a className="btn btn-outline btn-sm" href={D2.FB_URL} target="_blank" rel="noopener">Open our page</a>
-              </div>
-              <iframe
-                title="207 HouseKeeping on Facebook"
-                className="fb-embed-frame"
-                src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fhousekeeping207%2F&tabs=timeline&width=360&height=620&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true"
-                width="360" height="620"
-                scrolling="no" frameBorder="0" allowFullScreen={true}
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-              </iframe>
-            </div>
-            <a className="fb-foot-link" href={D2.FB_URL} target="_blank" rel="noopener">
-              See more on Facebook →
-            </a>
-          </aside>
+            </article>
+          ))}
         </div>
       </div>
     </section>
