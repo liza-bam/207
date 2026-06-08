@@ -127,6 +127,25 @@ a { color: inherit; }
 /* bubble motif overlay band */
 .bubbles-off .bubble-motif { display: none; }
 
+/* page-wide floating soap bubbles (behind all content) */
+.bg-bubbles { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.bg-bubble {
+  position: absolute; border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.75), transparent 46%),
+    linear-gradient(140deg, var(--accent), var(--lime));
+  animation: bubble-drift var(--bdur, 26s) var(--ease-out) var(--bdelay, 0s) infinite;
+  will-change: transform;
+}
+@keyframes bubble-drift {
+  0%   { transform: translate3d(0, 14px, 0) scale(1); }
+  50%  { transform: translate3d(10px, -20px, 0) scale(1.05); }
+  100% { transform: translate3d(0, 14px, 0) scale(1); }
+}
+.bubbles-off .bg-bubbles { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .bg-bubble { animation: none; }
+}
+
 /* ============================================================
    ENGAGEMENT ROW
    ============================================================ */

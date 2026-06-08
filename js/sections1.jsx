@@ -46,6 +46,36 @@ function Bubble({ size, style }) {
 window.useReveal = useReveal;
 window.Bubble = Bubble;
 
+/* ---------- Page-wide floating soap bubbles (brand motif) ----------
+   Sits behind all content (z-index:-1): shows through the lighter
+   sections, naturally masked by the deeper --bg-2 / dark sections.
+   Honors the "bubbles" tweak (via body.bubbles-off) + reduced motion. */
+const BG_BUBBLES = [
+  { size: 140, top: "6%",  left: "4%",  op: 0.13, dur: 30, delay: 0 },
+  { size: 64,  top: "18%", left: "88%", op: 0.18, dur: 24, delay: 3 },
+  { size: 34,  top: "30%", left: "14%", op: 0.20, dur: 19, delay: 1 },
+  { size: 96,  top: "44%", left: "78%", op: 0.12, dur: 28, delay: 5 },
+  { size: 22,  top: "52%", left: "32%", op: 0.22, dur: 16, delay: 2 },
+  { size: 120, top: "62%", left: "8%",  op: 0.11, dur: 32, delay: 4 },
+  { size: 48,  top: "70%", left: "90%", op: 0.17, dur: 22, delay: 0 },
+  { size: 28,  top: "80%", left: "20%", op: 0.20, dur: 18, delay: 6 },
+  { size: 80,  top: "86%", left: "66%", op: 0.13, dur: 27, delay: 2 },
+  { size: 40,  top: "92%", left: "44%", op: 0.18, dur: 21, delay: 4 },
+];
+function BackgroundBubbles() {
+  return (
+    <div className="bg-bubbles" aria-hidden="true">
+      {BG_BUBBLES.map((b, i) => (
+        <span key={i} className="bg-bubble" style={{
+          width: b.size, height: b.size, top: b.top, left: b.left, opacity: b.op,
+          "--bdur": b.dur + "s", "--bdelay": b.delay + "s",
+        }} />
+      ))}
+    </div>
+  );
+}
+window.BackgroundBubbles = BackgroundBubbles;
+
 const fmt = (n) => "$" + n.toLocaleString("en-US");
 window.fmt = fmt;
 

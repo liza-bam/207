@@ -26,6 +26,7 @@ function App() {
 
   return (
     <>
+      <BackgroundBubbles />
       <Header onStart={onStart} />
       <main>
         <Hero headline={t.headline} onStart={onStart} bubbles={t.bubbles} />
