@@ -1,202 +1,212 @@
-/* 207 HouseKeeping — content data (plain JS, attached to window) */
+/* 207 HouseKeeping — content data (plain JS, attached to window)
+   MODEL: full-service Maine vacation-rental care across FOUR services:
+   1) Housekeeping subscription  2) Tuning (projects)  3) Booking & Marketing  4) À la carte */
 (function () {
   const PHONE_DISPLAY = "(207) 749-8348";
   const PHONE_TEL = "+12077498348";
   const EMAIL = "207housekeeping@gmail.com";
   const FB_URL = "https://www.facebook.com/housekeeping207/";
 
-  // ---- 3 management tiers (4 originals consolidated, plain English) ----
-  const TIERS = [
+  /* =========================================================
+     SERVICES OVERVIEW — the four pillars (shown up top)
+     ========================================================= */
+  const SERVICES = [
     {
-      id: "self",
-      name: "Self-Service",
-      fee: 10,
-      tag: "You run the show — we back you up",
-      desc:
-        "You handle the listing, pricing, guest messages, cleaning and upkeep yourself. We step in on-site to line up and oversee the pros whenever you need a hand.",
-      features: [
-        "We coordinate plumbers, electricians & dock crews on your behalf",
-        "On-site oversight of any service or repair visit",
-        "24/7 guest lockout assistance",
-        "You keep your own marketing & advertising",
-      ],
-      popular: false,
-    },
-    {
-      id: "half",
-      name: "Half Service",
-      fee: 25,
-      tag: "We split the work — your way",
-      desc:
-        "Also called hybrid management. You keep the parts you enjoy and hand off the rest. Typically we run the listing, pricing and guest communication while you arrange cleaning and maintenance — or flip it however suits you.",
-      features: [
-        "Listing management & smart pricing",
-        "All guest communication, start to finish",
-        "You arrange cleaning & maintenance (or we can)",
-        "A flexible middle ground that grows with you",
-      ],
-      popular: true,
-    },
-    {
-      id: "full",
-      name: "Full Service",
-      fee: 35,
-      tag: "Completely hands-off, always guest-ready",
-      desc:
-        "Built by an Airbnb host, for hosts. We handle everything on-site and behind the scenes so you never lift a finger — including our specialty seasonal care for Maine rentals.",
-      features: [
-        "Listing, pricing, guest communication & financials",
-        "Turnover cleaning, deep cleans & seasonal open/close",
-        "Lawn, landscaping, flower beds & power washing",
-        "Small repairs: plumbing, bulbs, breakers, locks, screens & Ring doorbells",
-        "Welcome baskets, guest essentials & inventory tracking",
-        "24/7 guest contact, lockouts & social media marketing",
-      ],
-      popular: false,
-    },
-  ];
-
-  // ---- à la carte individual services ----
-  const INDIVIDUAL = [
-    {
-      id: "cleaning",
-      name: "Cleaning",
-      desc: "Turnover, opening deep cleans & closing cleans.",
-      price: "From $50",
-      unit: "varies by property",
+      id: "housekeeping",
       icon: "sparkle",
+      name: "Housekeeping",
+      tag: "Subscription",
+      price: "From $1,200/mo",
+      blurb: "Turnovers, lawn, restocking, guest care \u2014 your whole monthly rhythm, one flat price.",
+      anchor: "#housekeeping",
     },
     {
-      id: "lawn",
-      name: "Lawn care",
-      desc: "Opening season, fall clean-up & summer maintenance.",
-      price: "Quote",
-      unit: "varies by property",
-      icon: "leaf",
+      id: "tuning",
+      icon: "wand",
+      name: "Tuning",
+      tag: "Projects",
+      price: "Consult $250",
+      blurb: "From livable to booked solid \u2014 we scope it, quote it flat, and make it happen.",
+      anchor: "#tuning",
     },
     {
-      id: "wash",
-      name: "Power washing",
-      desc: "Decks, buildings, docks, paddle boats, kayaks & boats.",
-      price: "Quote",
-      unit: "varies by job",
-      icon: "spray",
-    },
-    {
-      id: "docks",
-      name: "Dock service",
-      desc: "Seasonal placing & removal of your dock.",
-      price: "Quote",
-      unit: "varies by size & location",
-      icon: "anchor",
-    },
-    {
-      id: "lockout",
-      name: "Emergency lockouts",
-      desc: "Central, Midcoast & Western Maine · Northern, Rangeley & Southern Maine.",
-      price: "$125 / $200",
-      unit: "by region",
-      icon: "key",
-    },
-    {
-      id: "social",
-      name: "Social media advertising",
-      desc: "Maximum exposure through peak season, February–August.",
-      price: "$75",
-      unit: "per week",
+      id: "marketing",
       icon: "megaphone",
+      name: "Booking & Marketing",
+      tag: "From $99/mo",
+      price: "3 flat tiers",
+      blurb: "Listing, pricing, guest messaging & marketing \u2014 flat monthly, never a percentage.",
+      anchor: "#marketing",
+    },
+    {
+      id: "alacarte",
+      icon: "tag",
+      name: "\u00c0 la carte",
+      tag: "Per job",
+      price: "No commitment",
+      blurb: "Book any single service on its own \u2014 cleaning, handyman, lawn, exterior, and more.",
+      anchor: "#alacarte",
     },
   ];
 
-  const SAME_DAY_NOTE =
-    "Same-day turnaround clean: +$50 (up to 3 bed / 2 bath), +$75 (4+ bed or 3+ bath). Owners cover all third-party professional costs (electrical, plumbing, dock placement) — we manage and facilitate the work for you.";
+  /* =========================================================
+     1) HOUSEKEEPING SUBSCRIPTION
+     ========================================================= */
+  const PLAN = {
+    name: "Housekeeping Subscription",
+    price: 1200,
+    founding: 1000,
+    foundingSpots: 5,
+    tagline: "Your home, handled \u2014 for one flat monthly price.",
+    note: "No percentage of your earnings. No surprise invoices. Everything below, every month.",
+  };
 
-  // ---- wizard service options ----
-  const WIZARD_SERVICES = [
-    { id: "turnover", title: "Turnover cleaning", sub: "Between every guest" },
-    { id: "deep", title: "Deep / seasonal clean", sub: "Opening or closing" },
-    { id: "lawn", title: "Lawn & landscaping", sub: "Mow, beds, clean-up" },
-    { id: "wash", title: "Power washing", sub: "Decks, docks, siding" },
-    { id: "dock", title: "Dock placement", sub: "Put in / take out" },
-    { id: "repairs", title: "Small repairs", sub: "Plumbing, locks, bulbs" },
-    { id: "guest", title: "Guest communication", sub: "Messages & bookings" },
-    { id: "marketing", title: "Listing & marketing", sub: "Pricing + social" },
+  const INCLUDED = [
+    { id: "turnover", icon: "sparkle", name: "Your turnovers", short: "Up to 8 bedroom-cleans a month",
+      desc: "For a typical 2-bedroom, that's about 4 full guest-ready turnovers, every month \u2014 included." },
+    { id: "lawn", icon: "leaf", name: "Your lawn", short: "Mowed & trimmed, four times a month",
+      desc: "So the curb appeal is always there for that all-important first guest photo." },
+    { id: "restock", icon: "box", name: "Restocking", short: "Four times a month",
+      desc: "Coffee, paper, soap, the little things \u2014 so guests never open an empty cupboard." },
+    { id: "emergencies", icon: "key", name: "The little emergencies", short: "Up to 4 quick visits a month",
+      desc: "Forgotten keys, lockouts, and the \u201ccan you just check on it?\u201d moments." },
+    { id: "guests", icon: "message", name: "Your guests", short: "Messaging, calls & coordination",
+      desc: "We handle the back-and-forth, so you're not answering your phone at 10pm." },
+    { id: "handyman", icon: "wrench", name: "Handyman visit", short: "Once a month, up to one hour",
+      desc: "A loose hinge, a leaky faucet, a picture to hang \u2014 the small fixes, handled in a monthly visit." },
   ];
 
+  const VALUE_ROWS = [
+    { service: "Turnover cleaning (2-bedroom)", payg: "$150 / turnover", plan: "Up to 4 turnovers", value: "$600" },
+    { service: "Lawn \u2014 mow & trim (\u00bd acre)", payg: "$50 / visit", plan: "4\u00d7 a month", value: "$200" },
+    { service: "Restocking", payg: "$75 / visit", plan: "4\u00d7 a month", value: "$300" },
+    { service: "Quick visits (keys, lockouts, checks)", payg: "$50 each", plan: "Up to 4 a month", value: "$200" },
+    { service: "Guest messaging & coordination", payg: "$250 / month", plan: "Included", value: "$250" },
+    { service: "Handyman visit (up to 1 hour)", payg: "$150 / visit", plan: "1\u00d7 a month", value: "$150" },
+  ];
+  const VALUE_TOTAL = "$1,700";
+  const VALUE_PAY = "$1,200";
+
+  const EXTRAS = [
+    { icon: "leaf", name: "Extra lawn", unit: "per \u00bd acre / month", price: 75,
+      desc: "Bigger lot? Add another half-acre of mowing & trimming to your monthly rhythm." },
+    { icon: "home", name: "Extra bedroom", unit: "per bedroom / month", price: 300,
+      desc: "Scales your turnovers and cleaning for homes larger than a standard 2-bedroom." },
+    { icon: "wrench", name: "Handyman subscription", unit: "per month", price: 200, featured: true,
+      desc: "Upgrade from one visit to four one-hour visits a month \u2014 $600 of work for $200." },
+  ];
+
+  /* =========================================================
+     2) TUNING (project-based)
+     ========================================================= */
+  const TUNING = {
+    consult: 250,
+    visualization: 250,
+    steps: [
+      { n: "1", title: "Consult \u2014 $250", desc: "We walk your property, learn your goals and budget, and hand you a clear written plan plus one flat quote. Move ahead and the $250 comes off your project cost." },
+      { n: "2", title: "The work", desc: "We bring in the crew and get it done \u2014 one flat quote, no hourly surprises, start to finish." },
+    ],
+    paths: [
+      { icon: "sparkle", title: "Make it desirable", desc: "Your place works, but it's not wow. We elevate it \u2014 styling, fixes, the details guests notice and photos love \u2014 so it stands out and books." },
+      { icon: "wand", title: "Flip it on a dime", desc: "Need it guest-ready fast without overspending? We make the high-impact, budget-smart changes that get you listed and earning quickly." },
+    ],
+    viz: "Want to see it before you commit? Our designer creates mock photos of roughly how your place will look, plus one round of changes to match your taste. A standalone design service, paid to the designer.",
+  };
+
+  /* =========================================================
+     3) BOOKING & MARKETING (3 flat tiers)
+     ========================================================= */
+  const MARKETING_TIERS = [
+    { name: "Basic", price: 99, pitch: "Get listed, get priced right.",
+      features: ["Listing setup & optimization", "Smart, seasonal pricing"] },
+    { name: "Standard", price: 199, popular: true, pitch: "We handle the guests, you relax.",
+      features: ["Everything in Basic", "All guest messaging, inquiry to checkout", "Calendar management & sync"] },
+    { name: "Premium", price: 299, pitch: "Fully hands-off, fully marketed.",
+      features: ["Everything in Standard", "Social media marketing", "Monthly owner reporting"] },
+  ];
+  const WHY_FLAT = {
+    title: "Why flat, not a percentage",
+    body: "Most managers take 20% or more of everything you earn. We don't. You pay one predictable price and keep the rest \u2014 so the better your place does, the more you keep.",
+    pairs: "Pairs with housekeeping. We handle your listing and your guests; our housekeeping team keeps the property guest-ready. Run them together for full coverage, or take either on its own.",
+  };
+
+  /* =========================================================
+     4) À LA CARTE (per job)
+     ========================================================= */
+  const ALACARTE = [
+    { group: "Cleaning", icon: "sparkle", items: [
+      { name: "Turnover cleaning", price: "$75 / bedroom", desc: "A full guest-ready turnover: clean, fresh linens, restock, and staging between guests." },
+      { name: "Deep / seasonal clean", price: "From $200", desc: "The big one \u2014 opening the season or closing it down. Varies by property size and condition." },
+    ]},
+    { group: "Handyman & repairs", icon: "wrench", items: [
+      { name: "General handyman", price: "$75 / hour", desc: "Odd jobs, fixes, and the small stuff that piles up. One-hour minimum." },
+      { name: "Small repairs", price: "From $95 / visit", desc: "Locks, bulbs, breakers, screens, Ring doorbells, faucets, and the like." },
+      { name: "Renovations", price: "By quote", desc: "Drywall, paint, fixtures, and small-to-medium renovation work. We scope it and give you one price." },
+    ]},
+    { group: "Lawn & landscaping", icon: "leaf", items: [
+      { name: "Lawn \u2014 mow & trim", price: "$75 / visit", desc: "Up to \u00bd acre. Larger lots quoted." },
+      { name: "Seasonal landscaping", price: "From $150", desc: "Spring open-up, fall clean-up, leaf removal, flower beds, brush clearing. By quote." },
+    ]},
+    { group: "Property & exterior", icon: "home", items: [
+      { name: "Gutter cleaning", price: "From $125", desc: "Cleared, flushed, and checked." },
+      { name: "Power washing", price: "By quote", desc: "Decks, docks, buildings, boats, kayaks, paddle boats." },
+      { name: "Dock service", price: "By quote", desc: "Seasonal placing and removal, priced by size and location." },
+      { name: "Seasonal open / close", price: "From $250", desc: "Get the property opened for the season or buttoned up for winter." },
+    ]},
+    { group: "Other", icon: "key", items: [
+      { name: "Emergency lockout", price: "$125 / $200", desc: "$125 in Central, Midcoast & Western Maine; $200 in Northern, Rangeley & Southern Maine." },
+      { name: "Social media advertising", price: "$75 / week", desc: "Peak-season exposure, February through August." },
+    ]},
+  ];
+  const ALACARTE_NOTES = [
+    "Materials are billed at cost plus 20%.",
+    "Owners cover third-party professional costs (licensed electrical, plumbing, dock placement) \u2014 we manage and facilitate the work for you.",
+    "\u201cBy quote\u201d items vary too much to flat-price, so we'll give you a clear number before any work begins.",
+  ];
+
+  /* =========================================================
+     WIZARD — route across services
+     ========================================================= */
+  const WIZARD_NEEDS = [
+    { id: "housekeeping", icon: "sparkle", title: "Ongoing housekeeping", sub: "Turnovers, lawn, restocking", serviceId: "housekeeping" },
+    { id: "marketing", icon: "megaphone", title: "Booking & marketing", sub: "Listing, pricing, guests", serviceId: "marketing" },
+    { id: "tuning", icon: "wand", title: "Tune up my property", sub: "Styling, fixes, fast flips", serviceId: "tuning" },
+    { id: "cleaning", icon: "spray", title: "A one-time clean", sub: "Turnover or deep clean", serviceId: "alacarte" },
+    { id: "handyman", icon: "wrench", title: "Handyman or repairs", sub: "Fixes, small projects", serviceId: "alacarte" },
+    { id: "exterior", icon: "home", title: "Lawn or exterior", sub: "Mowing, gutters, docks", serviceId: "alacarte" },
+  ];
   const PROPERTY_TYPES = ["Short-term rental", "Seasonal / vacation home", "Primary residence", "Multiple properties"];
-  const FREQUENCIES = ["One-time", "Per turnover", "Weekly", "Bi-weekly", "Seasonal"];
+  const TURNOVER_VOLUME = ["1\u20132 a month", "3\u20134 a month", "5\u20136 a month", "Seasonal only", "Not sure yet"];
 
-  // ---- reviews (real FB page + clearly-swappable placeholders) ----
+  /* =========================================================
+     SOCIAL PROOF
+     ========================================================= */
   const REVIEWS = [
-    {
-      name: "Sarah M.",
-      meta: "Rangeley · Seasonal rental",
-      stars: 5,
-      text:
-        "Rebekka and her team turn our lake house around between guests like clockwork. Spotless every single time and the welcome baskets are such a nice touch.",
-      color: "#007F7A",
-    },
-    {
-      name: "Dave & Linda P.",
-      meta: "Midcoast · Vacation home",
-      stars: 5,
-      text:
-        "They opened the camp for the season, handled the dock, and even met the plumber for us. One call and everything was just done. Worth every penny.",
-      color: "#005C58",
-    },
-    {
-      name: "Megan R.",
-      meta: "Central Maine · Airbnb host",
-      stars: 5,
-      text:
-        "Switched to full-service management last summer and my reviews have never been higher. Guests always mention how clean and stocked the place is.",
-      color: "#07A3A2",
-    },
-    {
-      name: "Tom B.",
-      meta: "Western Maine · Homeowner",
-      stars: 5,
-      text:
-        "Reliable, friendly, and fair pricing. They show up when they say they will — which around here is harder to find than you'd think.",
-      color: "#00B589",
-    },
-  ];
-
-  // ---- facebook feed (placeholder, swap with real posts) ----
-  const FB_POSTS = [
-    {
-      meta: "2 days ago",
-      text: "Another turnover done and guest-ready in the Rangeley region! Sweep up the savings.",
-      img: "photos/bedroom-2.jpg",
-      likes: 34,
-      comments: 5,
-    },
-    {
-      meta: "1 week ago",
-      text: "Docks are going in across the lakes this week — book your placement before the season fills up.",
-      img: "photos/dock.jpg",
-      likes: 41,
-      comments: 8,
-    },
-    {
-      meta: "2 weeks ago",
-      text: "Before & after on this seasonal opening deep clean. What a difference a day makes!",
-      img: "photos/ba-floor-2.jpg",
-      likes: 67,
-      comments: 12,
-    },
+    { name: "Sarah M.", meta: "Rangeley \u00b7 Seasonal rental", stars: 5, color: "#007F7A",
+      text: "One flat price and my whole month is handled. Turnovers, lawn, restocking \u2014 I don't think about any of it anymore. The welcome touches are such a nice bonus." },
+    { name: "Dave & Linda P.", meta: "Midcoast \u00b7 Vacation home", stars: 5, color: "#005C58",
+      text: "They handle our listing AND the cleaning, and we keep the percentage a big manager would've taken. No surprise invoices, no chasing anyone down." },
+    { name: "Megan R.", meta: "Central Maine \u00b7 Airbnb host", stars: 5, color: "#07A3A2",
+      text: "The tuning crew restyled our cabin and it books solid now. They scoped it, gave one flat quote, and just made it happen." },
+    { name: "Tom B.", meta: "Western Maine \u00b7 Homeowner", stars: 5, color: "#00B589",
+      text: "Reliable, friendly, and fair pricing. They show up when they say they will \u2014 which around here is harder to find than you'd think." },
   ];
 
   const BEFORE_AFTER = [
-    { img: "photos/ba-floor-1.jpg", label: "Floor restoration", where: "Seasonal opening" },
-    { img: "photos/ba-floor-2.jpg", label: "Deep clean", where: "Kitchen turnover" },
-    { img: "photos/ba-floor-3.jpg", label: "Floor refinish", where: "Camp open-up" },
+    { before: "photos/ba-kitchen-before.jpg", after: "photos/ba-kitchen-after.jpg", label: "Full kitchen reset",
+      desc: "A cluttered, lived-in kitchen brought back to spotless and staged \u2014 ready for the next guest photo." },
+    { before: "photos/ba-tile-before.jpg", after: "photos/ba-tile-after.jpg", label: "Floor & stove deep clean",
+      desc: "Years of grime lifted off the tile and range until the whole room shines like new." },
+    { before: "photos/ba-bedroom-before.jpg", after: "photos/ba-bedroom-after.jpg", label: "Hardwood floor revival",
+      desc: "A dull, worn bedroom floor cleaned and refinished to a warm, guest-ready glow." },
   ];
 
   window.DATA = {
     PHONE_DISPLAY, PHONE_TEL, EMAIL, FB_URL,
-    TIERS, INDIVIDUAL, SAME_DAY_NOTE,
-    WIZARD_SERVICES, PROPERTY_TYPES, FREQUENCIES,
-    REVIEWS, FB_POSTS, BEFORE_AFTER,
+    SERVICES,
+    PLAN, INCLUDED, VALUE_ROWS, VALUE_TOTAL, VALUE_PAY, EXTRAS,
+    TUNING, MARKETING_TIERS, WHY_FLAT, ALACARTE, ALACARTE_NOTES,
+    WIZARD_NEEDS, PROPERTY_TYPES, TURNOVER_VOLUME,
+    REVIEWS, BEFORE_AFTER,
   };
 })();

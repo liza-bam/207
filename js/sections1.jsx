@@ -1,4 +1,4 @@
-/* 207 HouseKeeping — sections part 1: helpers, header, hero, engagement, tiers, individual */
+/* 207 HouseKeeping — sections part 1: helpers, header, hero, services overview, engagement */
 const { useState, useEffect, useRef } = React;
 const D = window.DATA;
 const Icon = window.Icon;
@@ -15,7 +15,6 @@ function useReveal() {
 
     const show = (n) => n.classList.add("in");
     const near = () => window.innerHeight * 1.1;
-    // reveal anything already on/near screen at mount
     targets.forEach((n) => { if (n.getBoundingClientRect().top < near()) show(n); });
 
     let io = null;
@@ -28,7 +27,6 @@ function useReveal() {
     } else {
       targets.forEach(show);
     }
-    // safety net: never leave content hidden
     const t = setTimeout(() => targets.forEach(show), 1800);
     return () => { io && io.disconnect(); clearTimeout(t); };
   }, []);
@@ -45,24 +43,33 @@ function Bubble({ size, style }) {
   );
 }
 
-function GoLink({ children, onClick, href }) {
-  return (
-    <a className="go" href={href || "#"} onClick={onClick}>
-      {children} <Icon name="arrow" size={15} />
-    </a>
-  );
-}
-
 window.useReveal = useReveal;
 window.Bubble = Bubble;
+
+const fmt = (n) => "$" + n.toLocaleString("en-US");
+window.fmt = fmt;
+
+function jump(anchor) {
+  const el = document.querySelector(anchor);
+  if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 72, behavior: "smooth" });
+}
+window.jump = jump;
 
 /* ---------- Header ---------- */
 function Header({ onStart }) {
   const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
   useEffect(() => {
     const f = () => setScrolled(window.scrollY > 8);
     window.addEventListener("scroll", f); return () => window.removeEventListener("scroll", f);
   }, []);
+  const links = [
+    { href: "#services", label: "Services" },
+    { href: "#housekeeping", label: "Housekeeping" },
+    { href: "#tuning", label: "Tuning" },
+    { href: "#marketing", label: "Marketing" },
+    { href: "#alacarte", label: "\u00c0 la carte" },
+  ];
   return (
     <header className="site-header" style={scrolled ? { boxShadow: "var(--shadow-sm)" } : null}>
       <div className="wrap header-inner">
@@ -74,50 +81,47 @@ function Header({ onStart }) {
           </span>
         </a>
         <nav className="nav">
-          <a href="#services">Services</a>
-          <a href="#wizard">Get started</a>
-          <a href="#reviews">Reviews</a>
-          <a href="#book">Contact</a>
+          {links.map((l) => <a key={l.href} href={l.href}>{l.label}</a>)}
         </nav>
         <div className="header-cta">
           <a className="header-phone" href={"tel:" + D.PHONE_TEL}>
             <Icon name="phone" /> {D.PHONE_DISPLAY}
           </a>
-          <button className="btn btn-primary" onClick={onStart}>Get a quote</button>
+          <button className="btn btn-primary" onClick={onStart}>Get started</button>
         </div>
       </div>
     </header>
   );
 }
 
-/* ---------- Hero ---------- */
+/* ---------- Hero (company-level) ---------- */
 function Hero({ headline, onStart, bubbles }) {
   return (
     <section className="hero" id="top">
       <div className="wrap hero-grid">
         <div className="hero-copy reveal-up in">
-          <span className="eyebrow">Trusted home care across Maine</span>
+          <span className="eyebrow">Full-service vacation-rental care &middot; Maine</span>
           <h1 className="h-display" style={{ marginTop: 16 }}>{headline}</h1>
           <p className="lead">
-            From weekly upkeep to deep cleans and guest turnovers, our local team keeps
-            every room guest-ready — booked in minutes, done right.
+            Cleaning, tuning, booking &amp; marketing, and any one-off job &mdash; one local Maine team
+            for everything your short-term rental needs. Flat, fair pricing and never a cut of what you earn.
           </p>
           <div className="hero-cta">
             <button className="btn btn-primary btn-xl" onClick={onStart}>
-              <Icon name="wand" size={18} /> Start your project
+              <Icon name="wand" size={18} /> Build your plan
             </button>
             <a className="btn btn-outline btn-xl" href={"tel:" + D.PHONE_TEL}>
               <Icon name="phone" size={18} /> Call now
             </a>
           </div>
           <div className="hero-trust">
-            <span className="trust-item"><span className="dot" /> Background-checked team</span>
-            <span className="trust-item"><span className="dot" /> Flat, fair pricing</span>
-            <span className="trust-item"><span className="dot" /> Happiness guaranteed</span>
+            <span className="trust-item"><span className="dot" /> Flat, predictable pricing</span>
+            <span className="trust-item"><span className="dot" /> Never a percentage</span>
+            <span className="trust-item"><span className="dot" /> Maine-based &amp; local</span>
           </div>
         </div>
         <div className="hero-media reveal-up in">
-          <img className="hero-photo" src="photos/team-cleaning.jpg" alt="A 207 HouseKeeping team member cleaning a guest-ready kitchen" />
+          <img className="hero-photo" src="photos/ba-kitchen-after.jpg" alt="A spotless, guest-ready kitchen kept by 207 HouseKeeping" />
           {bubbles && <>
             <Bubble size={70} style={{ position: "absolute", top: -22, right: 30, opacity: 0.85 }} />
             <Bubble size={34} style={{ position: "absolute", top: 40, right: -12, opacity: 0.7 }} />
@@ -128,7 +132,7 @@ function Hero({ headline, onStart, bubbles }) {
               <div className="big">5.0</div>
             </div>
             <div style={{ fontSize: 13, color: "var(--fg2)", lineHeight: 1.4 }}>
-              Loved by Maine<br />homeowners & hosts
+              Loved by Maine<br />homeowners &amp; hosts
             </div>
           </div>
         </div>
@@ -137,14 +141,48 @@ function Hero({ headline, onStart, bubbles }) {
   );
 }
 
-/* ---------- Engagement methods ---------- */
+/* ---------- Services overview (the four pillars) ---------- */
+function ServicesOverview() {
+  const ref = useReveal();
+  return (
+    <section className="section" id="services" ref={ref}>
+      <div className="wrap">
+        <div className="reveal-up" style={{ textAlign: "center", maxWidth: 660, margin: "0 auto 40px" }}>
+          <span className="eyebrow" style={{ justifyContent: "center" }}>One team, four ways to help</span>
+          <h2 className="h2" style={{ marginTop: 12 }}>Everything your rental needs &mdash; under one roof</h2>
+          <p className="lead" style={{ marginTop: 14 }}>
+            Run them together for full coverage, or take any one on its own. Pick what you need below.
+          </p>
+        </div>
+        <div className="svc-grid">
+          {D.SERVICES.map((s, i) => (
+            <a key={s.id} className="svc-card reveal-up" href={s.anchor} style={{ transitionDelay: i * 60 + "ms" }}>
+              <div className="svc-top">
+                <span className="svc-icon"><Icon name={s.icon} size={22} /></span>
+                <span className="svc-tag">{s.tag}</span>
+              </div>
+              <h3>{s.name}</h3>
+              <p>{s.blurb}</p>
+              <div className="svc-foot">
+                <span className="svc-price">{s.price}</span>
+                <span className="svc-go">Explore <Icon name="arrow" size={15} /></span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- Engagement methods (CTAs) ---------- */
 function Engagement({ onStart, onContact }) {
   const ref = useReveal();
   const cards = [
-    { icon: "wand", title: "Use the wizard", desc: "Tell us what you want done and we'll build a custom plan.", action: onStart, featured: true, cta: "Start now", color: "var(--accent)" },
+    { icon: "wand", title: "Use the wizard", desc: "Tell us about your place and we'll point you to the right service.", action: onStart, featured: true, cta: "Start now", color: "var(--accent)" },
     { icon: "phone", title: "Call us", desc: D.PHONE_DISPLAY + " — talk to a real person, no phone trees.", href: "tel:" + D.PHONE_TEL, cta: "Call", color: "var(--teal-600)" },
     { icon: "message", title: "Text us", desc: "Quick question? Send a text and we'll get right back to you.", href: "sms:" + D.PHONE_TEL, cta: "Text", color: "var(--teal-500)" },
-    { icon: "mail", title: "Contact form", desc: "Prefer email? Send the details and we'll follow up with a quote.", action: onContact, cta: "Send a message", color: "var(--teal-700)" },
+    { icon: "mail", title: "Contact form", desc: "Prefer email? Send the details and we'll follow up the same day.", action: onContact, cta: "Send a message", color: "var(--teal-700)" },
   ];
   return (
     <section className="section-tight" ref={ref}>
@@ -177,85 +215,4 @@ function Engagement({ onStart, onContact }) {
   );
 }
 
-/* ---------- Service tiers ---------- */
-function Tiers({ onStart }) {
-  const ref = useReveal();
-  return (
-    <section className="section" id="services" style={{ background: "var(--bg-2)" }} ref={ref}>
-      <div className="wrap">
-        <div className="reveal-up" style={{ textAlign: "center", maxWidth: 640, margin: "0 auto 44px" }}>
-          <span className="eyebrow" style={{ justifyContent: "center" }}>Management packages</span>
-          <h2 className="h2" style={{ marginTop: 12 }}>Pick how much you want us to handle</h2>
-          <p className="lead" style={{ marginTop: 14 }}>
-            Three simple percentage-based packages — from a light helping hand to fully
-            hands-off. Not sure which fits? The wizard will recommend one.
-          </p>
-        </div>
-        <div className="tiers">
-          {D.TIERS.map((t, i) => (
-            <div key={t.id} className={"tier reveal-up" + (t.popular ? " popular" : "")} style={{ transitionDelay: i * 70 + "ms" }}>
-              {t.popular && <span className="tier-flag">Most popular</span>}
-              <div className="tier-name">{t.name}</div>
-              <div className="tier-fee">
-                <span className="pct">{t.fee}%</span>
-                <span className="of">of booking revenue</span>
-              </div>
-              <div className="tier-tag">{t.tag}</div>
-              <p className="tier-desc">{t.desc}</p>
-              <ul className="tier-list">
-                {t.features.map((f, j) => (
-                  <li key={j}><span className="tick"><Icon name="check" size={11} /></span>{f}</li>
-                ))}
-              </ul>
-              <button className={"btn " + (t.popular ? "btn-primary" : "btn-outline") + " btn-block"} onClick={onStart}>
-                Choose {t.name}
-              </button>
-            </div>
-          ))}
-        </div>
-        <p className="muted reveal-up" style={{ textAlign: "center", marginTop: 24, fontSize: 13.5 }}>
-          Turnover cleans on managed properties are billed through your STR host and paid by the guest, added with the package fee.
-        </p>
-      </div>
-    </section>
-  );
-}
-
-/* ---------- Individual services ---------- */
-function Individual() {
-  const ref = useReveal();
-  return (
-    <section className="section" id="alacarte" ref={ref}>
-      <div className="wrap">
-        <div className="reveal-up" style={{ marginBottom: 34, maxWidth: 620 }}>
-          <span className="eyebrow">À la carte</span>
-          <h2 className="h2" style={{ marginTop: 12 }}>Individual services, flat & hourly rates</h2>
-          <p className="lead" style={{ marginTop: 12 }}>
-            Don't need a full package? Book any service on its own — by flat rate or by the hour.
-          </p>
-        </div>
-        <div className="indiv-grid">
-          {D.INDIVIDUAL.map((s, i) => (
-            <div key={s.id} className="indiv-row reveal-up" style={{ transitionDelay: (i % 2) * 60 + "ms" }}>
-              <span className="indiv-bubble"><Icon name={s.icon} size={20} /></span>
-              <div>
-                <h4>{s.name}</h4>
-                <p>{s.desc}</p>
-              </div>
-              <div className="indiv-price">
-                <div className="amt">{s.price}</div>
-                <div className="unit">{s.unit}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="indiv-note reveal-up">
-          <Icon name="clock" size={18} style={{ color: "var(--accent)", flex: "none", marginTop: 1 }} />
-          <span>{D.SAME_DAY_NOTE}</span>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-Object.assign(window, { Header, Hero, Engagement, Tiers, Individual, GoLink });
+Object.assign(window, { Header, Hero, ServicesOverview, Engagement });

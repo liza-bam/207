@@ -1,187 +1,192 @@
-/* 207 HouseKeeping — sections part 2: before/after, reviews, facebook, booking, footer */
-const { useState: useState2, useEffect: useEffect2 } = React;
-const useState = useState2, useEffect = useEffect2;
+/* 207 HouseKeeping — sections part 2: HOUSEKEEPING subscription (plan, included, extras, value) */
 const D2 = window.DATA;
 const Icon2 = window.Icon;
 const useReveal2 = window.useReveal;
-const Bubble = window.Bubble;
+const fmt2 = window.fmt;
 
-/* ---------- Before / After ---------- */
-function BeforeAfter() {
-  const ref = useReveal2();
+/* ---------- Section label chip ---------- */
+function SvcLabel({ n, of, name }) {
   return (
-    <section className="section" id="work" style={{ background: "var(--bg-2)" }} ref={ref}>
+    <span className="svc-label">
+      <span className="svc-label-n">Service {n}<span className="of"> / {of}</span></span>
+      <span className="svc-label-name">{name}</span>
+    </span>
+  );
+}
+window.SvcLabel = SvcLabel;
+
+/* ---------- Housekeeping: the plan ---------- */
+function Housekeeping({ onStart }) {
+  const ref = useReveal2();
+  const P = D2.PLAN;
+  return (
+    <section className="section" id="housekeeping" style={{ background: "var(--bg-2)" }} ref={ref}>
       <div className="wrap">
-        <div className="reveal-up" style={{ textAlign: "center", maxWidth: 600, margin: "0 auto 40px" }}>
-          <span className="eyebrow" style={{ justifyContent: "center" }}>Real Maine jobs</span>
-          <h2 className="h2" style={{ marginTop: 12 }}>Before &amp; after</h2>
-          <p className="lead" style={{ marginTop: 12 }}>
-            A few openings, turnovers and deep cleans from around the lakes. Same homes — just guest-ready.
+        <div className="reveal-up" style={{ textAlign: "center", maxWidth: 660, margin: "0 auto 40px" }}>
+          <SvcLabel n="1" of="4" name="Housekeeping" />
+          <h2 className="h2" style={{ marginTop: 16 }}>Your whole month, handled</h2>
+          <p className="lead" style={{ marginTop: 14 }}>
+            A flat-rate subscription that covers the everyday rhythm of your rental &mdash; no percentage
+            of your bookings, no surprise invoices.
           </p>
         </div>
-        <div className="ba-grid">
-          {D2.BEFORE_AFTER.map((b, i) => (
-            <figure key={i} className="ba-card reveal-up" style={{ margin: 0, transitionDelay: i * 70 + "ms" }}>
-              <img src={b.img} alt={b.label + " before and after"} loading="lazy" />
-              <figcaption className="ba-cap">
-                <span className="pill">Before / After</span>
-                <span className="t">{b.label} · {b.where}</span>
-              </figcaption>
-            </figure>
-          ))}
+
+        <div className="plan-card reveal-up">
+          <span className="bubble-motif" aria-hidden="true" />
+          <div className="plan-main">
+            <div className="plan-name">{P.name}</div>
+            <div className="plan-price">
+              <span className="amt">{fmt2(P.price)}</span>
+              <span className="per">/ month</span>
+            </div>
+            <p className="plan-note">{P.note}</p>
+            <div className="plan-cta">
+              <button className="btn btn-primary btn-xl" onClick={onStart}>
+                <Icon2 name="wand" size={18} /> Build your plan
+              </button>
+              <a className="btn btn-ghost-light btn-xl" href={"tel:" + D2.PHONE_TEL}>
+                <Icon2 name="phone" size={18} /> Call now
+              </a>
+            </div>
+          </div>
+          <div className="plan-founding">
+            <span className="fchip">Founding offer</span>
+            <div className="famt">{fmt2(P.founding)}<span>/ mo</span></div>
+            <p>The next <strong>{P.foundingSpots} owners</strong> lock in this rate for a full year.</p>
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-/* ---------- Reviews + Facebook ---------- */
-function ReviewsFB() {
+/* ---------- What's included ---------- */
+function Included() {
   const ref = useReveal2();
   return (
-    <section className="section" id="reviews" ref={ref}>
+    <section className="section" id="included" ref={ref}>
       <div className="wrap">
-        <div className="reveal-up" style={{ marginBottom: 36, maxWidth: 640 }}>
-          <span className="eyebrow">Loved by locals</span>
-          <h2 className="h2" style={{ marginTop: 12 }}>What Maine homeowners say</h2>
+        <div className="reveal-up" style={{ maxWidth: 620, marginBottom: 36 }}>
+          <span className="eyebrow">Every month, we take care of</span>
+          <h2 className="h2" style={{ marginTop: 12 }}>The whole rhythm, covered</h2>
+          <p className="lead" style={{ marginTop: 12 }}>
+            Six things that never stop &mdash; all rolled into your flat monthly price.
+          </p>
         </div>
-        <div className="review-grid">
-          {D2.REVIEWS.map((r, i) => (
-            <article key={i} className="review-card reveal-up" style={{ transitionDelay: (i % 2) * 60 + "ms" }}>
-              <div className="review-stars">{"★".repeat(r.stars)}</div>
-              <p className="review-text">“{r.text}”</p>
-              <div className="review-who">
-                <span className="review-av" style={{ background: r.color }}>{r.name[0]}</span>
-                <span>
-                  <span className="nm" style={{ display: "block" }}>{r.name}</span>
-                  <span className="mt">{r.meta}</span>
-                </span>
+        <div className="incl-grid">
+          {D2.INCLUDED.map((s, i) => (
+            <div key={s.id} className="incl-card reveal-up" style={{ transitionDelay: (i % 3) * 60 + "ms" }}>
+              <span className="incl-bubble"><Icon2 name={s.icon} size={22} /></span>
+              <div className="incl-body">
+                <h4>{s.name}</h4>
+                <div className="incl-short">{s.short}</div>
+                <p>{s.desc}</p>
               </div>
-            </article>
+            </div>
+          ))}
+          <div className="incl-card incl-cta reveal-up" style={{ transitionDelay: "120ms" }}>
+            <div className="incl-body">
+              <div className="incl-short" style={{ color: "var(--lime)" }}>Included &amp; flat</div>
+              <h4 style={{ color: "#fff" }}>All of it, for {fmt2(D2.PLAN.price)} a month</h4>
+              <p style={{ color: "var(--fg-on-dark)", opacity: 0.82 }}>
+                That's roughly {D2.VALUE_TOTAL} of everyday upkeep handled &mdash; without you
+                lifting a finger or watching the invoice.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- Extras (monthly add-ons) ---------- */
+function Extras() {
+  const ref = useReveal2();
+  return (
+    <section className="section" id="extras" style={{ background: "var(--bg-2)" }} ref={ref}>
+      <div className="wrap">
+        <div className="reveal-up" style={{ maxWidth: 620, marginBottom: 36 }}>
+          <span className="eyebrow">Scale it to your place</span>
+          <h2 className="h2" style={{ marginTop: 12 }}>Simple add-ons</h2>
+          <p className="lead" style={{ marginTop: 12 }}>
+            Bigger lot or a larger home? Add exactly what you need at a clear flat monthly rate &mdash;
+            no surprises, ever.
+          </p>
+        </div>
+        <div className="extra-grid">
+          {D2.EXTRAS.map((e, i) => (
+            <div key={i} className={"extra-card reveal-up" + (e.featured ? " featured" : "")} style={{ transitionDelay: i * 70 + "ms" }}>
+              {e.featured && <span className="extra-flag">Best value</span>}
+              <span className="extra-icon"><Icon2 name={e.icon} size={22} /></span>
+              <h4>{e.name}</h4>
+              <div className="extra-price">
+                <span className="amt">+{fmt2(e.price)}</span>
+                <span className="unit">{e.unit}</span>
+              </div>
+              <p>{e.desc}</p>
+            </div>
           ))}
         </div>
+        <p className="extra-foot reveal-up">
+          Add-ons are billed flat each month alongside your plan. One-off bigger projects are always
+          quoted up front &mdash; just ask.
+        </p>
       </div>
     </section>
   );
 }
 
-/* ---------- Booking / Contact form ---------- */
-function Booking({ formRef }) {
+/* ---------- Value comparison ---------- */
+function ValueTable() {
   const ref = useReveal2();
-  const [sent, setSent] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", phone: "", town: "", interest: "A management package", message: "" });
-  const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
-  const submit = (e) => { e.preventDefault(); setSent(true); };
-
   return (
-    <section className="section" id="book" ref={ref}>
+    <section className="section" id="value" ref={ref}>
       <div className="wrap">
-        <div className="book-layout reveal-up" ref={formRef}>
-          <div className="book-info">
-            <span className="eyebrow">Book a clean</span>
-            <h2 className="h2">Let's get your place guest-ready</h2>
-            <p>Tell us a little about your property and we'll follow up with a quote — usually the same day.</p>
-            <div className="contact-lines">
-              <a className="contact-line" href={"tel:" + D2.PHONE_TEL}>
-                <span className="ci"><Icon2 name="phone" /></span>
-                <span><span className="cl">Call</span><br /><span className="cv">{D2.PHONE_DISPLAY}</span></span>
-              </a>
-              <a className="contact-line" href={"sms:" + D2.PHONE_TEL}>
-                <span className="ci"><Icon2 name="message" /></span>
-                <span><span className="cl">Text</span><br /><span className="cv">{D2.PHONE_DISPLAY}</span></span>
-              </a>
-              <a className="contact-line" href={"mailto:" + D2.EMAIL}>
-                <span className="ci"><Icon2 name="mail" /></span>
-                <span><span className="cl">Email</span><br /><span className="cv">{D2.EMAIL}</span></span>
-              </a>
-              <div className="contact-line">
-                <span className="ci"><Icon2 name="pin" /></span>
-                <span><span className="cl">Service area</span><br /><span className="cv">Central, Midcoast, Western &amp; Northern Maine</span></span>
-              </div>
-            </div>
-            <Bubble size={120} style={{ position: "absolute", right: -30, bottom: -34, opacity: 0.16 }} />
-          </div>
+        <div className="reveal-up" style={{ textAlign: "center", maxWidth: 640, margin: "0 auto 40px" }}>
+          <span className="eyebrow" style={{ justifyContent: "center" }}>Do the math</span>
+          <h2 className="h2" style={{ marginTop: 12 }}>Piece by piece vs. your plan</h2>
+          <p className="lead" style={{ marginTop: 14 }}>
+            Here's what the same care would cost if you booked it one job at a time.
+          </p>
+        </div>
 
-          <div className="book-form">
-            {sent ? (
-              <div className="wizard-success" style={{ padding: "40px 10px" }}>
-                <div className="success-ring"><Icon2 name="check" size={38} /></div>
-                <h3 className="h3">Thanks, {form.name || "neighbor"}!</h3>
-                <p className="lead" style={{ marginTop: 10 }}>
-                  Your request is in. We'll reach out at {form.phone || form.email || "your contact"} shortly to talk through the details.
-                </p>
-                <button className="btn btn-outline" style={{ marginTop: 20 }} onClick={() => { setSent(false); }}>Send another</button>
-              </div>
-            ) : (
-              <form onSubmit={submit}>
-                <div className="row2">
-                  <div className="field"><label>Your name</label><input className="input" required value={form.name} onChange={set("name")} placeholder="Jane Smith" /></div>
-                  <div className="field"><label>Town</label><input className="input" value={form.town} onChange={set("town")} placeholder="Rangeley" /></div>
-                </div>
-                <div className="row2">
-                  <div className="field"><label>Email</label><input className="input" type="email" value={form.email} onChange={set("email")} placeholder="you@email.com" /></div>
-                  <div className="field"><label>Phone</label><input className="input" type="tel" value={form.phone} onChange={set("phone")} placeholder="(207) 555-0123" /></div>
-                </div>
-                <div className="field">
-                  <label>I'm interested in</label>
-                  <select className="select" value={form.interest} onChange={set("interest")}>
-                    <option>A management package</option>
-                    <option>A one-time clean</option>
-                    <option>Turnover cleaning</option>
-                    <option>Lawn / dock / power washing</option>
-                    <option>Not sure yet — help me decide</option>
-                  </select>
-                </div>
-                <div className="field"><label>Anything else?</label><textarea className="textarea" value={form.message} onChange={set("message")} placeholder="Tell us about your property, beds/baths, and what you need." /></div>
-                <button className="btn btn-primary btn-block btn-lg" type="submit">Request my quote</button>
-                <p className="muted" style={{ fontSize: 12.5, marginTop: 12, textAlign: "center" }}>We'll never share your info. Expect a reply the same day.</p>
-              </form>
-            )}
+        <div className="value-table reveal-up">
+          <div className="vt-head">
+            <span>Service</span>
+            <span>Pay as you go</span>
+            <span>With your plan</span>
+            <span className="num">Monthly value</span>
+          </div>
+          {D2.VALUE_ROWS.map((r, i) => (
+            <div key={i} className="vt-row">
+              <span className="vt-svc" data-k="Service">{r.service}</span>
+              <span data-k="Pay as you go">{r.payg}</span>
+              <span data-k="With your plan"><span className="vt-tick"><Icon2 name="check" size={11} /></span>{r.plan}</span>
+              <span className="num" data-k="Monthly value">{r.value}</span>
+            </div>
+          ))}
+          <div className="vt-total">
+            <span className="vt-svc">Total value</span>
+            <span className="vt-spacer" />
+            <span className="vt-totlabel">if booked separately</span>
+            <span className="num strike">{D2.VALUE_TOTAL}</span>
+          </div>
+          <div className="vt-pay">
+            <span className="vt-svc">You pay</span>
+            <span className="vt-spacer" />
+            <span className="vt-totlabel">flat, every month</span>
+            <span className="num big">{D2.VALUE_PAY}</span>
           </div>
         </div>
+
+        <p className="value-foot reveal-up">
+          That's <strong>{D2.VALUE_TOTAL}</strong> of care for <strong>{D2.VALUE_PAY}</strong> &mdash;
+          and just <strong>{fmt2(D2.PLAN.founding)}</strong> if you're one of our first {D2.PLAN.foundingSpots} owners.
+        </p>
       </div>
     </section>
   );
 }
 
-/* ---------- Footer ---------- */
-function Footer() {
-  return (
-    <footer className="site-footer">
-      <div className="wrap">
-        <div className="footer-top">
-          <div>
-            <div className="footer-brand">
-              <img className="mark" src="assets/logo-mark-white.svg" alt="" />
-              <span className="fn">207 HouseKeeping</span>
-            </div>
-            <p className="footer-about">
-              A local, family-run cleaning &amp; property-management team serving Maine.
-              Custom-built by an Airbnb host, for hosts — sweep up the savings.
-            </p>
-          </div>
-          <div className="footer-col">
-            <h5>Services</h5>
-            <a href="#services">Management packages</a>
-            <a href="#alacarte">Individual services</a>
-            <a href="#wizard">Start the wizard</a>
-            <a href="#reviews">Reviews</a>
-          </div>
-          <div className="footer-col">
-            <h5>Get in touch</h5>
-            <a href={"tel:" + D2.PHONE_TEL}>{D2.PHONE_DISPLAY}</a>
-            <a href={"mailto:" + D2.EMAIL}>{D2.EMAIL}</a>
-            <a href={D2.FB_URL} target="_blank" rel="noopener">Facebook</a>
-            <p>Owner: Rebekka Hinkley</p>
-          </div>
-        </div>
-        <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} 207 HouseKeeping · Property Management. All rights reserved.</span>
-          <span>Sweep up the savings!</span>
-        </div>
-      </div>
-    </footer>
-  );
-}
-
-Object.assign(window, { BeforeAfter, ReviewsFB, Booking, Footer });
+Object.assign(window, { Housekeeping, Included, Extras, ValueTable });

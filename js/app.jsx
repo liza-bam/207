@@ -3,9 +3,8 @@ const { useEffect: useEffectA } = React;
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "accent": "#00D4A3",
-  "headline": "A spotless home, made simple.",
-  "bubbles": true,
-  "showAlaCarte": true
+  "headline": "Your home, handled.",
+  "bubbles": true
 }/*EDITMODE-END*/;
 
 function scrollToId(id) {
@@ -18,7 +17,6 @@ function App() {
 
   useEffectA(() => {
     document.documentElement.style.setProperty("--accent", t.accent);
-    // derive a slightly darker hover shade
     document.documentElement.style.setProperty("--accent-strong", t.accent);
     document.body.classList.toggle("bubbles-off", !t.bubbles);
   }, [t.accent, t.bubbles]);
@@ -31,11 +29,18 @@ function App() {
       <Header onStart={onStart} />
       <main>
         <Hero headline={t.headline} onStart={onStart} bubbles={t.bubbles} />
-        <Engagement onStart={onStart} onContact={onContact} />
-        <Tiers onStart={onStart} />
-        {t.showAlaCarte && <Individual />}
+        <ServicesOverview />
+        <Housekeeping onStart={onStart} />
+        <Included />
+        <Extras />
+        <ValueTable />
+        <Tuning onContact={onContact} />
+        <Marketing onContact={onContact} />
+        <Alacarte onContact={onContact} />
+        <BeforeAfter />
         <Wizard />
         <ReviewsFB />
+        <Engagement onStart={onStart} onContact={onContact} />
         <Booking />
       </main>
       <Footer />
@@ -50,9 +55,6 @@ function App() {
         <TweakSection label="Hero" />
         <TweakText label="Headline" value={t.headline}
           onChange={(v) => setTweak("headline", v)} />
-        <TweakSection label="Sections" />
-        <TweakToggle label="Show à-la-carte pricing" value={t.showAlaCarte}
-          onChange={(v) => setTweak("showAlaCarte", v)} />
       </TweaksPanel>
     </>
   );
