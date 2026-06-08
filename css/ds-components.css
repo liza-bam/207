@@ -80,3 +80,34 @@
 /* ---------- Eyebrow helper ---------- */
 .eyebrow { font-family: var(--font-sans); font-size: 13px; font-weight: 700;
   letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal-600); }
+
+/* ---------- Section heading block ----------
+   Wraps the eyebrow + h2 + lead at the top of a .section.
+   Capped at a comfortable reading width; rhythm between
+   eyebrow → h2 → lead is handled here instead of inline.
+   Add the --center modifier for centered intro blocks. */
+.section-head {
+  max-width: min(680px, 100%);
+  margin: 0 0 var(--sp-10);
+}
+.section-head--center {
+  margin-inline: auto;
+  text-align: center;
+}
+.section-head--center .eyebrow { justify-content: center; }
+.section-head > .h2   { margin-top: var(--sp-3); }
+.section-head > .lead { margin-top: var(--sp-3); }
+/* Tighter spacing — for a standalone eyebrow above a sub-grid. */
+.section-head--sm { margin-block: var(--sp-2) var(--sp-6); }
+
+/* ---------- Section background variants ----------
+   Use on a .section to swap its background. Keeps the
+   --bg-2 token decision out of JSX inline styles. */
+.section--alt { background: var(--bg-2); }
+
+/* ---------- Color utilities ----------
+   Tiny, generic text-color helpers so one-off colors
+   don't end up inline in JSX. Add more as the brand grows. */
+.t-lime         { color: var(--lime); }
+.t-paper        { color: var(--paper); }
+.t-on-dark-soft { color: var(--fg-on-dark); opacity: 0.82; }

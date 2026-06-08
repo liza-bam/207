@@ -12,10 +12,10 @@ function Tuning({ onContact }) {
   return (
     <section className="section" id="tuning" ref={ref}>
       <div className="wrap">
-        <div className="reveal-up" style={{ textAlign: "center", maxWidth: 680, margin: "0 auto 44px" }}>
+        <div className="section-head section-head--center reveal-up">
           <SvcLabel3 n="2" of="4" name="Tuning" />
-          <h2 className="h2" style={{ marginTop: 16 }}>From livable to booked solid</h2>
-          <p className="lead" style={{ marginTop: 14 }}>
+          <h2 className="h2">From livable to booked solid</h2>
+          <p className="lead">
             Turn a plain house into a place guests fight to book &mdash; or flip a tired property fast on a
             budget. We scope it, quote it flat, and make it happen.
           </p>
@@ -35,7 +35,7 @@ function Tuning({ onContact }) {
         </div>
 
         {/* Two ways to tune */}
-        <div className="reveal-up" style={{ textAlign: "center", margin: "8px 0 22px" }}>
+        <div className="section-head section-head--center section-head--sm reveal-up">
           <span className="mini-eyebrow">Two ways to tune</span>
         </div>
         <div className="tune-paths">
@@ -76,12 +76,12 @@ function Marketing({ onContact }) {
   const ref = useReveal3();
   const W = D3.WHY_FLAT;
   return (
-    <section className="section" id="marketing" style={{ background: "var(--bg-2)" }} ref={ref}>
+    <section className="section section--alt" id="marketing" ref={ref}>
       <div className="wrap">
-        <div className="reveal-up" style={{ textAlign: "center", maxWidth: 680, margin: "0 auto 40px" }}>
+        <div className="section-head section-head--center reveal-up">
           <SvcLabel3 n="3" of="4" name="Booking & Marketing" />
-          <h2 className="h2" style={{ marginTop: 16 }}>Pick how much you want handled</h2>
-          <p className="lead" style={{ marginTop: 14 }}>
+          <h2 className="h2">Pick how much you want handled</h2>
+          <p className="lead">
             Keep your listing sharp and your guests happy &mdash; without the percentage cut. Flat monthly
             pricing, three levels. Start where you like and move up anytime.
           </p>
@@ -116,7 +116,7 @@ function Marketing({ onContact }) {
             </div>
           </div>
           <div className="whyflat-pairs">
-            <span className="mini-eyebrow" style={{ marginBottom: 8, display: "block" }}>Pairs with housekeeping</span>
+            <span className="mini-eyebrow">Pairs with housekeeping</span>
             <p>{W.pairs}</p>
           </div>
         </div>
@@ -131,10 +131,10 @@ function Alacarte({ onContact }) {
   return (
     <section className="section" id="alacarte" ref={ref}>
       <div className="wrap">
-        <div className="reveal-up" style={{ maxWidth: 680, marginBottom: 40 }}>
+        <div className="section-head reveal-up">
           <SvcLabel3 n="4" of="4" name="À la carte" />
-          <h2 className="h2" style={{ marginTop: 16 }}>Pay per job &mdash; no plan, no commitment</h2>
-          <p className="lead" style={{ marginTop: 14 }}>
+          <h2 className="h2">Pay per job &mdash; no plan, no commitment</h2>
+          <p className="lead">
             Book any single service on its own, whenever you need it. Flat rates where the job is
             predictable, a quick quote where it isn't &mdash; always clear before we start.
           </p>

@@ -9,12 +9,12 @@ const Bubble4 = window.Bubble;
 function BeforeAfter() {
   const ref = useReveal4();
   return (
-    <section className="section" id="work" style={{ background: "var(--bg-2)" }} ref={ref}>
+    <section className="section section--alt" id="work" ref={ref}>
       <div className="wrap">
-        <div className="reveal-up" style={{ textAlign: "center", maxWidth: 600, margin: "0 auto 44px" }}>
-          <span className="eyebrow" style={{ justifyContent: "center" }}>Real Maine jobs</span>
-          <h2 className="h2" style={{ marginTop: 12 }}>Before &amp; after</h2>
-          <p className="lead" style={{ marginTop: 12 }}>
+        <div className="section-head section-head--center reveal-up">
+          <span className="eyebrow">Real Maine jobs</span>
+          <h2 className="h2">Before &amp; after</h2>
+          <p className="lead">
             A few turnovers and deep cleans from around the lakes. Same homes &mdash; just guest-ready.
           </p>
         </div>
@@ -49,9 +49,9 @@ function ReviewsFB() {
   return (
     <section className="section" id="reviews" ref={ref}>
       <div className="wrap">
-        <div className="reveal-up" style={{ marginBottom: 36, maxWidth: 640 }}>
+        <div className="section-head reveal-up">
           <span className="eyebrow">Loved by locals</span>
-          <h2 className="h2" style={{ marginTop: 12 }}>What Maine homeowners say</h2>
+          <h2 className="h2">What Maine homeowners say</h2>
         </div>
         <div className="reviews-layout">
           <div className="review-grid">
@@ -60,9 +60,9 @@ function ReviewsFB() {
                 <div className="review-stars">{"★".repeat(r.stars)}</div>
                 <p className="review-text">“{r.text}”</p>
                 <div className="review-who">
-                  <span className="review-av" style={{ background: r.color }}>{r.name[0]}</span>
+                  <span className="review-av" style={{ "--av-bg": r.color }}>{r.name[0]}</span>
                   <span>
-                    <span className="nm" style={{ display: "block" }}>{r.name}</span>
+                    <span className="nm">{r.name}</span>
                     <span className="mt">{r.meta}</span>
                   </span>
                 </div>
@@ -70,7 +70,7 @@ function ReviewsFB() {
             ))}
           </div>
 
-          <aside className="fb-card follow-only reveal-up" style={{ transitionDelay: "80ms" }}>
+          <aside className="fb-card follow-only reveal-up">
             <div className="fb-head">
               <span className="fb-logo"><Icon4 name="facebook" size={22} /></span>
               <div>
@@ -125,18 +125,18 @@ function Booking({ formRef }) {
                 <span><span className="cl">Service area</span><br /><span className="cv">Central, Midcoast, Western &amp; Northern Maine</span></span>
               </div>
             </div>
-            <Bubble4 size={120} style={{ position: "absolute", right: -30, bottom: -34, opacity: 0.16 }} />
+            <Bubble4 size={120} className="book-info-deco-bubble" />
           </div>
 
           <div className="book-form">
             {sent ? (
-              <div className="wizard-success" style={{ padding: "40px 10px" }}>
+              <div className="wizard-success">
                 <div className="success-ring"><Icon4 name="check" size={38} /></div>
                 <h3 className="h3">Thanks, {form.name || "neighbor"}!</h3>
-                <p className="lead" style={{ marginTop: 10 }}>
+                <p className="lead">
                   Your request is in. We'll reach out at {form.phone || form.email || "your contact"} shortly to talk through the details.
                 </p>
-                <button className="btn btn-outline" style={{ marginTop: 20 }} onClick={() => { setSent(false); }}>Send another</button>
+                <button className="btn btn-outline" onClick={() => { setSent(false); }}>Send another</button>
               </div>
             ) : (
               <form onSubmit={submit}>
@@ -160,7 +160,7 @@ function Booking({ formRef }) {
                 </div>
                 <div className="field"><label>Anything else?</label><textarea className="textarea" value={form.message} onChange={set("message")} placeholder="Tell us about your property, beds/baths, and what you need." /></div>
                 <button className="btn btn-primary btn-block btn-lg" type="submit">Request my quote</button>
-                <p className="muted" style={{ fontSize: 12.5, marginTop: 12, textAlign: "center" }}>We'll never share your info. Expect a reply the same day.</p>
+                <p className="form-disclaimer">We'll never share your info. Expect a reply the same day.</p>
               </form>
             )}
           </div>

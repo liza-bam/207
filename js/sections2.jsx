@@ -20,12 +20,12 @@ function Housekeeping({ onStart }) {
   const ref = useReveal2();
   const P = D2.PLAN;
   return (
-    <section className="section" id="housekeeping" style={{ background: "var(--bg-2)" }} ref={ref}>
+    <section className="section section--alt" id="housekeeping" ref={ref}>
       <div className="wrap">
-        <div className="reveal-up" style={{ textAlign: "center", maxWidth: 660, margin: "0 auto 40px" }}>
+        <div className="section-head section-head--center reveal-up">
           <SvcLabel n="1" of="4" name="Housekeeping" />
-          <h2 className="h2" style={{ marginTop: 16 }}>Your whole month, handled</h2>
-          <p className="lead" style={{ marginTop: 14 }}>
+          <h2 className="h2">Your whole month, handled</h2>
+          <p className="lead">
             A flat-rate subscription that covers the everyday rhythm of your rental &mdash; no percentage
             of your bookings, no surprise invoices.
           </p>
@@ -66,10 +66,10 @@ function Included() {
   return (
     <section className="section" id="included" ref={ref}>
       <div className="wrap">
-        <div className="reveal-up" style={{ maxWidth: 620, marginBottom: 36 }}>
+        <div className="section-head reveal-up">
           <span className="eyebrow">Every month, we take care of</span>
-          <h2 className="h2" style={{ marginTop: 12 }}>The whole rhythm, covered</h2>
-          <p className="lead" style={{ marginTop: 12 }}>
+          <h2 className="h2">The whole rhythm, covered</h2>
+          <p className="lead">
             Six things that never stop &mdash; all rolled into your flat monthly price.
           </p>
         </div>
@@ -84,11 +84,11 @@ function Included() {
               </div>
             </div>
           ))}
-          <div className="incl-card incl-cta reveal-up" style={{ transitionDelay: "120ms" }}>
+          <div className="incl-card incl-cta reveal-up">
             <div className="incl-body">
-              <div className="incl-short" style={{ color: "var(--lime)" }}>Included &amp; flat</div>
-              <h4 style={{ color: "#fff" }}>All of it, for {fmt2(D2.PLAN.price)} a month</h4>
-              <p style={{ color: "var(--fg-on-dark)", opacity: 0.82 }}>
+              <div className="incl-short t-lime">Included &amp; flat</div>
+              <h4 className="t-paper">All of it, for {fmt2(D2.PLAN.price)} a month</h4>
+              <p className="t-on-dark-soft">
                 That's roughly {D2.VALUE_TOTAL} of everyday upkeep handled &mdash; without you
                 lifting a finger or watching the invoice.
               </p>
@@ -104,12 +104,12 @@ function Included() {
 function Extras() {
   const ref = useReveal2();
   return (
-    <section className="section" id="extras" style={{ background: "var(--bg-2)" }} ref={ref}>
+    <section className="section section--alt" id="extras" ref={ref}>
       <div className="wrap">
-        <div className="reveal-up" style={{ maxWidth: 620, marginBottom: 36 }}>
+        <div className="section-head reveal-up">
           <span className="eyebrow">Scale it to your place</span>
-          <h2 className="h2" style={{ marginTop: 12 }}>Simple add-ons</h2>
-          <p className="lead" style={{ marginTop: 12 }}>
+          <h2 className="h2">Simple add-ons</h2>
+          <p className="lead">
             Bigger lot or a larger home? Add exactly what you need at a clear flat monthly rate &mdash;
             no surprises, ever.
           </p>
@@ -143,10 +143,10 @@ function ValueTable() {
   return (
     <section className="section" id="value" ref={ref}>
       <div className="wrap">
-        <div className="reveal-up" style={{ textAlign: "center", maxWidth: 640, margin: "0 auto 40px" }}>
-          <span className="eyebrow" style={{ justifyContent: "center" }}>Do the math</span>
-          <h2 className="h2" style={{ marginTop: 12 }}>Piece by piece vs. your plan</h2>
-          <p className="lead" style={{ marginTop: 14 }}>
+        <div className="section-head section-head--center reveal-up">
+          <span className="eyebrow">Do the math</span>
+          <h2 className="h2">Piece by piece vs. your plan</h2>
+          <p className="lead">
             Here's what the same care would cost if you booked it one job at a time.
           </p>
         </div>

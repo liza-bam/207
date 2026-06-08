@@ -33,13 +33,13 @@ function useReveal() {
   return ref;
 }
 
-function Bubble({ size, style }) {
+/* Brand soap-bubble shape. Style/gradient lives in .bubble (CSS).
+   Size comes in via a prop and binds inline (data-driven).
+   Pass a className for positioning (e.g. .hero-deco-bubble--lg). */
+function Bubble({ size, className }) {
+  const cls = "bubble" + (className ? " " + className : "");
   return (
-    <span style={{
-      width: size, height: size, borderRadius: "50%", display: "inline-block",
-      background: "radial-gradient(circle at 32% 28%, rgba(255,255,255,0.7), transparent 42%), linear-gradient(140deg, var(--accent), var(--lime))",
-      ...style,
-    }} />
+    <span className={cls} style={{ width: size, height: size }} />
   );
 }
 
@@ -131,7 +131,7 @@ function Hero({ headline, onStart, bubbles }) {
       <div className="wrap hero-grid">
         <div className="hero-copy reveal-up in">
           <span className="eyebrow">Full-service vacation-rental care &middot; Maine</span>
-          <h1 className="h-display" style={{ marginTop: 16 }}>{headline}</h1>
+          <h1 className="h-display">{headline}</h1>
           <p className="lead">
             Cleaning, tuning, booking &amp; marketing, and any one-off job &mdash; one local Maine team
             for everything your short-term rental needs. Flat, fair pricing and never a cut of what you earn.
@@ -153,15 +153,15 @@ function Hero({ headline, onStart, bubbles }) {
         <div className="hero-media reveal-up in">
           <img className="hero-photo" src="photos/ba-kitchen-after.jpg" alt="A spotless, guest-ready kitchen kept by 207 HouseKeeping" />
           {bubbles && <>
-            <Bubble size={70} style={{ position: "absolute", top: -22, right: 30, opacity: 0.85 }} />
-            <Bubble size={34} style={{ position: "absolute", top: 40, right: -12, opacity: 0.7 }} />
+            <Bubble size={70} className="hero-deco-bubble--lg" />
+            <Bubble size={34} className="hero-deco-bubble--sm" />
           </>}
           <div className="hero-badge-card">
             <div>
               <div className="stars">★★★★★</div>
               <div className="big">5.0</div>
             </div>
-            <div style={{ fontSize: 13, color: "var(--fg2)", lineHeight: 1.4 }}>
+            <div className="meta">
               Loved by Maine<br />homeowners &amp; hosts
             </div>
           </div>
@@ -177,10 +177,10 @@ function ServicesOverview() {
   return (
     <section className="section" id="services" ref={ref}>
       <div className="wrap">
-        <div className="reveal-up" style={{ textAlign: "center", maxWidth: 660, margin: "0 auto 40px" }}>
-          <span className="eyebrow" style={{ justifyContent: "center" }}>One team, four ways to help</span>
-          <h2 className="h2" style={{ marginTop: 12 }}>Everything your rental needs &mdash; under one roof</h2>
-          <p className="lead" style={{ marginTop: 14 }}>
+        <div className="section-head section-head--center reveal-up">
+          <span className="eyebrow">One team, four ways to help</span>
+          <h2 className="h2">Everything your rental needs &mdash; under one roof</h2>
+          <p className="lead">
             Run them together for full coverage, or take any one on its own. Pick what you need below.
           </p>
         </div>
@@ -217,15 +217,15 @@ function Engagement({ onStart, onContact }) {
   return (
     <section className="section-tight" ref={ref}>
       <div className="wrap">
-        <div className="reveal-up" style={{ marginBottom: 30 }}>
+        <div className="section-head reveal-up">
           <span className="eyebrow">Four easy ways to start</span>
-          <h2 className="h2" style={{ marginTop: 12 }}>How would you like to reach us?</h2>
+          <h2 className="h2">How would you like to reach us?</h2>
         </div>
         <div className="engage-grid">
           {cards.map((c, i) => {
             const inner = (
               <>
-                <div className="engage-icon" style={{ background: c.featured ? "linear-gradient(140deg, var(--accent), var(--lime))" : c.color, color: c.featured ? "var(--teal-900)" : "#fff" }}>
+                <div className="engage-icon" style={{ "--engage-icon-bg": c.color }}>
                   <Icon name={c.icon} />
                 </div>
                 <h4>{c.title}</h4>

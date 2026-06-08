@@ -119,10 +119,32 @@ a { color: inherit; }
 .hero-badge-card .stars { color: #F5A623; font-size: 15px; letter-spacing: 1px; }
 .hero-badge-card .big { font-family: var(--font-display); font-weight: 800;
   font-size: 26px; line-height: 1; }
+/* Caption next to the rating in the hero badge. */
+.hero-badge-card .meta { font-size: var(--t-caption); color: var(--fg2); line-height: 1.4; }
+/* Headline spacing inside the hero copy block. */
+.hero-copy .h-display { margin-top: var(--sp-4); }
 .float-bubble { position: absolute; border-radius: 50%;
   background: radial-gradient(circle at 32% 28%, #fff8, transparent 42%),
     linear-gradient(140deg, var(--accent), var(--lime));
   opacity: 0.9; pointer-events: none; }
+
+/* Brand soap-bubble shape — gradient sphere with highlight.
+   Size is data-driven via the component prop (inline width/height).
+   Add a position class (e.g. .hero-deco-bubble--lg) for placement. */
+.bubble {
+  border-radius: 50%;
+  display: inline-block;
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255,255,255,0.7), transparent 42%),
+    linear-gradient(140deg, var(--accent), var(--lime));
+}
+
+/* Decorative bubbles overlaid on the hero photo. */
+.hero-deco-bubble--lg { position: absolute; top: -22px; right: 30px;  opacity: 0.85; }
+.hero-deco-bubble--sm { position: absolute; top: 40px;  right: -12px; opacity: 0.70; }
+
+/* Decorative bubble inside the dark contact-info card. */
+.book-info-deco-bubble { position: absolute; right: -30px; bottom: -34px; opacity: 0.16; }
 
 /* bubble motif overlay band */
 .bubbles-off .bubble-motif { display: none; }
@@ -160,9 +182,17 @@ a { color: inherit; }
 }
 .engage-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md);
   border-color: transparent; }
+/* Icon tile. Background color is data-driven via --engage-icon-bg
+   (set by the consumer for non-featured cards). Featured cards
+   override to the brand gradient (see below). */
 .engage-icon { width: 48px; height: 48px; border-radius: 14px;
-  display: grid; place-items: center; color: #fff; margin-bottom: 6px; }
+  display: grid; place-items: center; color: #fff; margin-bottom: 6px;
+  background: var(--engage-icon-bg, var(--brand)); }
 .engage-icon svg { width: 24px; height: 24px; }
+.engage-card.featured .engage-icon {
+  background: linear-gradient(140deg, var(--accent), var(--lime));
+  color: var(--teal-900);
+}
 .engage-card h4 { margin: 0; font-family: var(--font-display); font-weight: 700;
   font-size: 19px; }
 .engage-card p { margin: 0; font-size: 14px; color: var(--fg2); line-height: 1.5; }
@@ -233,6 +263,9 @@ a { color: inherit; }
   font-size: 19px; }
 .incl-short { font-weight: 700; color: var(--teal-700); font-size: 14px; margin-bottom: 7px; }
 .incl-body p { margin: 0; font-size: 14px; color: var(--fg2); line-height: 1.55; }
+/* CTA tile inside the included-grid — slight stagger so it lands
+   after the regular cards. */
+.incl-card.incl-cta.reveal-up { transition-delay: 120ms; }
 .incl-card.incl-cta { background: var(--ink-surface); border-color: transparent;
   flex-direction: column; justify-content: center; }
 .incl-card.incl-cta:hover { transform: translateY(-4px); }
@@ -479,10 +512,18 @@ a { color: inherit; }
   text-transform: uppercase; color: var(--teal-900); background: var(--lime);
   padding: 4px 10px; border-radius: var(--r-pill); }
 .wizard-success { text-align: center; padding: 30px 10px; }
+.wizard-success .lead { margin-top: var(--sp-2); }
+.wizard-success .btn  { margin-top: var(--sp-5); }
+/* Booking form uses the same success card but with more breathing room. */
+.book-form .wizard-success { padding-block: var(--sp-10); }
 .success-ring { width: 76px; height: 76px; border-radius: 50%; margin: 0 auto 20px;
   background: linear-gradient(140deg, var(--accent), var(--lime)); display: grid;
   place-items: center; box-shadow: var(--shadow-brand); }
 .success-ring svg { width: 38px; height: 38px; color: var(--teal-900); }
+
+/* Form fine-print under the submit button. */
+.form-disclaimer { font-size: var(--t-caption); margin-top: var(--sp-3);
+  text-align: center; color: var(--fg3); }
 
 /* ============================================================
    BEFORE / AFTER (square pairs)
@@ -522,10 +563,11 @@ a { color: inherit; }
 .review-stars { color: #F5A623; letter-spacing: 2px; font-size: 16px; }
 .review-text { font-size: 15px; line-height: 1.6; color: var(--fg1); margin: 0; }
 .review-who { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+/* Avatar circle. Background color is data-driven via --av-bg. */
 .review-av { width: 42px; height: 42px; border-radius: 50%; flex: none;
   display: grid; place-items: center; font-weight: 700; color: #fff; font-size: 16px;
-  font-family: var(--font-display); }
-.review-who .nm { font-weight: 700; font-size: 14.5px; }
+  font-family: var(--font-display); background: var(--av-bg, var(--teal-500)); }
+.review-who .nm { font-weight: 700; font-size: 14.5px; display: block; }
 .review-who .mt { font-size: 12.5px; color: var(--fg3); }
 
 .fb-card { background: var(--paper); border: 1px solid var(--line);
@@ -551,6 +593,7 @@ a { color: inherit; }
   color: var(--teal-600); text-decoration: none; padding: 14px 18px;
   border-top: 1px solid var(--line); }
 .fb-card.follow-only { align-self: start; }
+.fb-card.follow-only.reveal-up { transition-delay: 80ms; }
 .fb-card.follow-only .fb-head { border-bottom: 1px solid var(--line); }
 .follow-body { padding: 22px 18px; }
 .follow-body p { margin: 0 0 16px; font-size: 14px; color: var(--fg2); line-height: 1.55; }
@@ -731,7 +774,7 @@ a { color: inherit; }
 .whyflat-main p { margin: 0; font-size: 15px; line-height: 1.65; color: var(--fg-on-dark); opacity: 0.86; text-wrap: pretty; }
 .whyflat-pairs { border-left: 1px solid rgba(255,255,255,0.14); padding-left: 26px; }
 .whyflat-pairs p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--fg-on-dark); opacity: 0.82; text-wrap: pretty; }
-.whyflat-pairs .mini-eyebrow { color: var(--lime); }
+.whyflat-pairs .mini-eyebrow { color: var(--lime); display: block; margin-bottom: var(--sp-2); }
 
 /* ============================================================
    À LA CARTE
