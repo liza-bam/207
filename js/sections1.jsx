@@ -85,8 +85,11 @@ function jump(anchor) {
 }
 window.jump = jump;
 
-/* ---------- Header ---------- */
-function Header({ onStart }) {
+/* ---------- Header ----------
+   At >=1200px: nav links are inline. Below: nav collapses into
+   a drawer toggled by the hamburger. The "Text us" CTA stays
+   visible at every width \u2014 it never goes into the drawer. */
+function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   useEffect(() => {
@@ -100,24 +103,34 @@ function Header({ onStart }) {
     { href: "#marketing", label: "Marketing" },
     { href: "#alacarte", label: "\u00c0 la carte" },
   ];
+  const closeMenu = () => setOpen(false);
   return (
-    <header className="site-header" style={scrolled ? { boxShadow: "var(--shadow-sm)" } : null}>
+    <header className={"site-header" + (scrolled ? " is-scrolled" : "") + (open ? " is-open" : "")}>
       <div className="wrap header-inner">
-        <a className="brand-lockup" href="#top">
+        <a className="brand-lockup" href="#top" onClick={closeMenu}>
           <img className="mark" src="assets/logo-mark-gradient.svg" alt="207 HouseKeeping" />
           <span>
             <span className="brand-name">207 HouseKeeping</span>
             <span className="brand-sub">Property Management</span>
           </span>
         </a>
-        <nav className="nav">
-          {links.map((l) => <a key={l.href} href={l.href}>{l.label}</a>)}
+        <nav className="nav" id="primary-nav">
+          {links.map((l) => <a key={l.href} href={l.href} onClick={closeMenu}>{l.label}</a>)}
         </nav>
         <div className="header-cta">
-          <a className="header-phone" href={"tel:" + D.PHONE_TEL}>
-            <Icon name="phone" /> {D.PHONE_DISPLAY}
+          <a className="btn btn-primary header-text" href={"sms:" + D.PHONE_TEL}>
+            <Icon name="message" size={17} /> Text us
           </a>
-          <button className="btn btn-primary" onClick={onStart}>Get started</button>
+          <button
+            className="menu-toggle"
+            type="button"
+            aria-controls="primary-nav"
+            aria-expanded={open}
+            aria-label={open ? "Close menu" : "Open menu"}
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span /><span /><span />
+          </button>
         </div>
       </div>
     </header>

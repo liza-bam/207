@@ -4,7 +4,7 @@
 (function () {
   const PHONE_DISPLAY = "(207) 749-8348";
   const PHONE_TEL = "+12077498348";
-  const EMAIL = "207housekeeping@gmail.com";
+  const EMAIL = "info@207housekeeping.com";
   const FB_URL = "https://www.facebook.com/housekeeping207/";
 
   /* =========================================================
