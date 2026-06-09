@@ -135,23 +135,23 @@
      ========================================================= */
   const ALACARTE = [
     { group: "Cleaning", icon: "sparkle", items: [
-      { name: "Turnover cleaning", price: "$75 / bedroom", desc: "A full guest-ready turnover: clean, fresh linens, restock, and staging between guests." },
-      { name: "Deep / seasonal clean", price: "From $200", desc: "The big one \u2014 opening the season or closing it down. Varies by property size and condition." },
+      { name: "Turnover cleaning", price: "$75 / bed", desc: "A full guest-ready turnover: clean, fresh linens, restock, and staging between guests." },
+      { name: "Deep / seasonal clean", price: "From $500", desc: "The big one \u2014 opening the season or closing it down. Varies by property size and condition." },
+      { name: "Campers & mobile homes \u2014 deep clean", price: "From $1,000", desc: "Full interior deep clean for campers, RVs, and mobile homes." },
     ]},
     { group: "Handyman & repairs", icon: "wrench", items: [
-      { name: "General handyman", price: "$75 / hour", desc: "Odd jobs, fixes, and the small stuff that piles up. One-hour minimum." },
-      { name: "Small repairs", price: "From $95 / visit", desc: "Locks, bulbs, breakers, screens, Ring doorbells, faucets, and the like." },
+      { name: "Handyman & repairs", price: "From $100 / visit", desc: "Locks, bulbs, breakers, screens, Ring doorbells, faucets, and the like. Odd jobs, fixes, and the small stuff that piles up. One-hour minimum." },
       { name: "Renovations", price: "By quote", desc: "Drywall, paint, fixtures, and small-to-medium renovation work. We scope it and give you one price." },
     ]},
     { group: "Lawn & landscaping", icon: "leaf", items: [
       { name: "Lawn \u2014 mow & trim", price: "$75 / visit", desc: "Up to \u00bd acre. Larger lots quoted." },
-      { name: "Seasonal landscaping", price: "From $150", desc: "Spring open-up, fall clean-up, leaf removal, flower beds, brush clearing. By quote." },
+      { name: "Seasonal landscaping", price: "From $250", desc: "Spring open-up, fall clean-up, leaf removal, flower beds, brush clearing. By quote." },
     ]},
     { group: "Property & exterior", icon: "home", items: [
       { name: "Gutter cleaning", price: "From $125", desc: "Cleared, flushed, and checked." },
       { name: "Power washing", price: "By quote", desc: "Decks, docks, buildings, boats, kayaks, paddle boats." },
       { name: "Dock service", price: "By quote", desc: "Seasonal placing and removal, priced by size and location." },
-      { name: "Seasonal open / close", price: "From $250", desc: "Get the property opened for the season or buttoned up for winter." },
+      { name: "Seasonal open / close", price: "From $500", desc: "Get the property opened for the season or buttoned up for winter." },
     ]},
     { group: "Other", icon: "key", items: [
       { name: "Emergency lockout", price: "$125 / $200", desc: "$125 in Central, Midcoast & Western Maine; $200 in Northern, Rangeley & Southern Maine." },
