@@ -54,7 +54,7 @@
      ========================================================= */
   const PLAN = {
     name: "Housekeeping Subscription",
-    price: 1200,
+    price: 2000,
     founding: 1000,
     foundingSpots: 5,
     tagline: "Your home, handled \u2014 for one flat monthly price.",
@@ -62,8 +62,8 @@
   };
 
   const INCLUDED = [
-    { id: "turnover", icon: "sparkle", name: "Your turnovers", short: "Up to 8 bedroom-cleans a month",
-      desc: "For a typical 2-bedroom, that's about 4 full guest-ready turnovers, every month \u2014 included." },
+    { id: "turnover", icon: "sparkle", name: "Your turnovers", short: "Up to 4 turnovers a month (up to 4 beds)",
+      desc: "For a typical 2-bedroom with up to 4 beds, that's 4 full guest-ready turnovers a month \u2014 included." },
     { id: "lawn", icon: "leaf", name: "Your lawn", short: "Mowed & trimmed, four times a month",
       desc: "So the curb appeal is always there for that all-important first guest photo." },
     { id: "restock", icon: "box", name: "Restocking", short: "Four times a month",
@@ -77,21 +77,21 @@
   ];
 
   const VALUE_ROWS = [
-    { service: "Turnover cleaning (2-bedroom)", payg: "$150 / turnover", plan: "Up to 4 turnovers", value: "$600" },
-    { service: "Lawn \u2014 mow & trim (\u00bd acre)", payg: "$50 / visit", plan: "4\u00d7 a month", value: "$200" },
+    { service: "Turnover cleaning (4 beds)", payg: "$300 / turnover", plan: "Up to 4 turnovers", value: "$1,200" },
+    { service: "Lawn \u2014 mow & trim (\u00bd acre)", payg: "$75 / visit", plan: "4\u00d7 a month", value: "$300" },
     { service: "Restocking", payg: "$75 / visit", plan: "4\u00d7 a month", value: "$300" },
-    { service: "Quick visits (keys, lockouts, checks)", payg: "$50 each", plan: "Up to 4 a month", value: "$200" },
+    { service: "Quick visits (keys, lockouts, checks)", payg: "$125 each", plan: "Up to 4 a month", value: "$500" },
     { service: "Guest messaging & coordination", payg: "$250 / month", plan: "Included", value: "$250" },
-    { service: "Handyman visit (up to 1 hour)", payg: "$150 / visit", plan: "1\u00d7 a month", value: "$150" },
+    { service: "Handyman visit (up to 1 hour)", payg: "$100 / visit", plan: "1\u00d7 a month", value: "$100" },
   ];
-  const VALUE_TOTAL = "$1,700";
-  const VALUE_PAY = "$1,200";
+  const VALUE_TOTAL = "$2,650";
+  const VALUE_PAY = "$2,000";
 
   const EXTRAS = [
     { icon: "leaf", name: "Extra lawn", unit: "per \u00bd acre / month", price: 75,
       desc: "Bigger lot? Add another half-acre of mowing & trimming to your monthly rhythm." },
-    { icon: "home", name: "Extra bedroom", unit: "per bedroom / month", price: 300,
-      desc: "Scales your turnovers and cleaning for homes larger than a standard 2-bedroom." },
+    { icon: "home", name: "Extra bed", unit: "per bed / month", price: 300,
+      desc: "Scales your turnovers and cleaning for homes with more than 4 beds." },
     { icon: "wrench", name: "Handyman subscription", unit: "per month", price: 200, featured: true,
       desc: "Upgrade from one visit to four one-hour visits a month \u2014 $600 of work for $200." },
   ];
