@@ -83,18 +83,16 @@
 
 /* ---------- Section heading block ----------
    Wraps the eyebrow + h2 + lead at the top of a .section.
-   Capped at a comfortable reading width; rhythm between
+   ALWAYS centered, reading-width capped. Rhythm between
    eyebrow → h2 → lead is handled here instead of inline.
-   Add the --center modifier for centered intro blocks. */
+   (The .section-head--center modifier is kept as a no-op for
+   backwards compatibility; do not rely on it.) */
 .section-head {
   max-width: min(680px, 100%);
-  margin: 0 0 var(--sp-10);
-}
-.section-head--center {
-  margin-inline: auto;
+  margin: 0 auto var(--sp-10);
   text-align: center;
 }
-.section-head--center .eyebrow { justify-content: center; }
+.section-head .eyebrow { justify-content: center; }
 .section-head > .h2   { margin-top: var(--sp-3); }
 .section-head > .lead { margin-top: var(--sp-3); }
 /* Tighter spacing — for a standalone eyebrow above a sub-grid. */
