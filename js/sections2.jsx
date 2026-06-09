@@ -49,11 +49,6 @@ function Housekeeping({ onStart }) {
               </a>
             </div>
           </div>
-          <div className="plan-founding">
-            <span className="fchip">Founding offer</span>
-            <div className="famt">{fmt2(P.founding)}<span>/ mo</span></div>
-            <p>The next <strong>{P.foundingSpots} owners</strong> lock in this rate for a full year.</p>
-          </div>
         </div>
       </div>
     </section>
@@ -181,8 +176,7 @@ function ValueTable() {
         </div>
 
         <p className="value-foot reveal-up">
-          That's <strong>{D2.VALUE_TOTAL}</strong> of care for <strong>{D2.VALUE_PAY}</strong> &mdash;
-          and just <strong>{fmt2(D2.PLAN.founding)}</strong> if you're one of our first {D2.PLAN.foundingSpots} owners.
+          That's <strong>{D2.VALUE_TOTAL}</strong> of care for <strong>{D2.VALUE_PAY}</strong>.
         </p>
       </div>
     </section>
