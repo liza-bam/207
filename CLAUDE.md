@@ -96,3 +96,22 @@ bottom; don't rewrite history.
 3. **Test the auto-reply email end-to-end** — once the popup div is embedded and Elfsight's auto-reply is set up (Email Notifications → Subscriber confirmation, paste `emails/coupon-autoreply.html`), submit the form with a real email and confirm the coupon arrives.
 4. **Verify "Enforce HTTPS"** is checked at https://github.com/liza-bam/207/settings/pages (cert was issued earlier — should be ON now).
 5. **Inline-style sweep, round 2** — `wizard.jsx` and `tweaks-panel.jsx` still have inline `style={{}}` props I didn't touch. Lower priority since they're interactive panels.
+### 2026-06-09 — punch list (active)
+
+Bugs/changes Liza flagged in rapid succession; tackled in one batch:
+- Globally brighten inverted text (remove opacity:0.x on text-on-dark)
+- `.incl-cta` eyebrow should read lime, not muddy teal
+- All card grids should auto-wrap (no stuck-at-1-col at tablet)
+- "Why flat, not a percentage" card — redesign as Them-vs-Us comparison
+- Hero on mobile: photo full width, copy centered
+- Header: trim white space at narrow viewports
+- Add Social media setup item to À la carte (Other group) — $500
+- Add "+setup fee" line to Booking & Marketing tiers (placeholder amounts: $150/$250/$400)
+- Move Wizard up near the top (right after Hero)
+
+6. **Coupon: one per customer** — the $200-off coupon needs deduplication. Discussed 4 options on 2026-06-09:
+   - Option 1: Elfsight built-in "Limit submissions per email" (check form settings)
+   - Option 2: Honor-system + manual "Coupons Redeemed" Google Sheet (Liza tracks who redeemed)
+   - Option 3: Unique per-signup code via Zapier (e.g. SAVE200-A7K9), tracked in a Sheet
+   - Option 4: Strict Zapier dedupe (auto-reply off, Zapier checks Sheet first)
+   Recommendation: start with Option 1 + Option 2. Revisit later if needed.

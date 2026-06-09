@@ -117,11 +117,11 @@
      3) BOOKING & MARKETING (3 flat tiers)
      ========================================================= */
   const MARKETING_TIERS = [
-    { name: "Basic", price: 99, pitch: "Get listed, get priced right.",
+    { name: "Basic", price: 99, setup: 150, pitch: "Get listed, get priced right.",
       features: ["Listing setup & optimization", "Smart, seasonal pricing"] },
-    { name: "Standard", price: 199, popular: true, pitch: "We handle the guests, you relax.",
+    { name: "Standard", price: 199, setup: 250, popular: true, pitch: "We handle the guests, you relax.",
       features: ["Everything in Basic", "All guest messaging, inquiry to checkout", "Calendar management & sync"] },
-    { name: "Premium", price: 299, pitch: "Fully hands-off, fully marketed.",
+    { name: "Premium", price: 299, setup: 400, pitch: "Fully hands-off, fully marketed.",
       features: ["Everything in Standard", "Social media marketing", "Monthly owner reporting"] },
   ];
   const WHY_FLAT = {
@@ -155,6 +155,7 @@
     ]},
     { group: "Other", icon: "key", items: [
       { name: "Emergency lockout", price: "$125 / $200", desc: "$125 in Central, Midcoast & Western Maine; $200 in Northern, Rangeley & Southern Maine." },
+      { name: "Social media setup", price: "$500", desc: "Instagram and Facebook page setup — branded profile, starter posts, link-in-bio. One-time." },
       { name: "Social media advertising", price: "$75 / week", desc: "Peak-season exposure, February through August." },
     ]},
   ];

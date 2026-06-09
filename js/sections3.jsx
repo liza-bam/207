@@ -93,6 +93,7 @@ function Marketing({ onContact }) {
               {t.popular && <span className="mkt-flag">Most popular</span>}
               <div className="mkt-name">{t.name}</div>
               <div className="mkt-price"><span className="amt">{fmt3(t.price)}</span><span className="per">/ month</span></div>
+              {t.setup && <div className="mkt-setup">+ {fmt3(t.setup)} one-time setup</div>}
               <div className="mkt-pitch">{t.pitch}</div>
               <ul className="mkt-features">
                 {t.features.map((f, j) => (
@@ -106,19 +107,25 @@ function Marketing({ onContact }) {
           ))}
         </div>
 
-        {/* Why flat */}
+        {/* Why flat — Them vs us comparison */}
         <div className="whyflat reveal-up">
-          <div className="whyflat-main">
+          <div className="whyflat-head">
             <span className="whyflat-icon"><Icon3 name="tag" size={22} /></span>
-            <div>
-              <h3>{W.title}</h3>
-              <p>{W.body}</p>
+            <h3>{W.title}</h3>
+          </div>
+          <div className="whyflat-compare">
+            <div className="wf-col wf-col--them">
+              <div className="wf-col-label">Most managers</div>
+              <div className="wf-col-stat">20%+</div>
+              <p>of everything you earn — every booking, every season.</p>
+            </div>
+            <div className="wf-col wf-col--us">
+              <div className="wf-col-label">207 HouseKeeping</div>
+              <div className="wf-col-stat">$0</div>
+              <p>we never take a cut. One flat price; you keep the rest.</p>
             </div>
           </div>
-          <div className="whyflat-pairs">
-            <span className="mini-eyebrow">Pairs with housekeeping</span>
-            <p>{W.pairs}</p>
-          </div>
+          <p className="whyflat-foot">Pairs with housekeeping for full coverage.</p>
         </div>
       </div>
     </section>

@@ -30,6 +30,7 @@ function App() {
       <Header onStart={onStart} />
       <main>
         <Hero headline={t.headline} onStart={onStart} bubbles={t.bubbles} />
+        <Wizard />
         <ServicesOverview />
         <Housekeeping onStart={onStart} />
         <Included />
@@ -39,7 +40,6 @@ function App() {
         <Marketing onContact={onContact} />
         <Alacarte onContact={onContact} />
         <BeforeAfter />
-        <Wizard />
         <ReviewsFB />
         <Engagement onStart={onStart} onContact={onContact} />
         <Booking />

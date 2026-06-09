@@ -108,4 +108,4 @@
    don't end up inline in JSX. Add more as the brand grows. */
 .t-lime         { color: var(--lime); }
 .t-paper        { color: var(--paper); }
-.t-on-dark-soft { color: var(--fg-on-dark); opacity: 0.82; }
+.t-on-dark-soft { color: var(--fg-on-dark); }
