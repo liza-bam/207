@@ -3,7 +3,7 @@ const { useEffect: useEffectA } = React;
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "accent": "#00D4A3",
-  "headline": "Your home, handled.",
+  "headline": "Hi, I'm Becky.",
   "bubbles": true
 }/*EDITMODE-END*/;
 
@@ -30,6 +30,7 @@ function App() {
       <Header onStart={onStart} />
       <main>
         <Hero headline={t.headline} onStart={onStart} bubbles={t.bubbles} />
+        <GalleryStrip />
         <Wizard />
         <ServicesOverview />
         <Housekeeping onStart={onStart} />

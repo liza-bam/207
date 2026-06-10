@@ -143,11 +143,12 @@ function Hero({ headline, onStart, bubbles }) {
     <section className="hero" id="top">
       <div className="wrap hero-grid">
         <div className="hero-copy reveal-up in">
-          <span className="eyebrow">Full-service vacation-rental care &middot; Maine</span>
+          <span className="eyebrow">Family-run in Maine</span>
           <h1 className="h-display">{headline}</h1>
           <p className="lead">
-            Cleaning, tuning, booking &amp; marketing, and any one-off job &mdash; one local Maine team
-            for everything your short-term rental needs. Flat, fair pricing and never a cut of what you earn.
+            I take care of vacation rentals across Maine &mdash; cleaning, tuning, booking, and all
+            the little things that keep guests happy. Proactive, hands-on, and proud of every job.
+            Flat, fair pricing &mdash; never a cut of what you earn.
           </p>
           <div className="hero-cta">
             <button className="btn btn-primary btn-xl" onClick={onStart}>
@@ -183,6 +184,25 @@ function Hero({ headline, onStart, bubbles }) {
     </section>
   );
 }
+
+/* ---------- Gallery strip ----------
+   Slim horizontal marquee of real cleans. Duplicates the photo
+   list so the CSS marquee can loop seamlessly. Same height for
+   every image, variable width, pause-on-hover. */
+function GalleryStrip() {
+  const photos = D.GALLERY || [];
+  const items = photos.concat(photos);
+  return (
+    <section className="gallery-strip" aria-label="Recent cleans across Maine">
+      <div className="gallery-track">
+        {items.map((src, i) => (
+          <img key={i} className="gallery-img" src={src} alt="" loading="lazy" />
+        ))}
+      </div>
+    </section>
+  );
+}
+window.GalleryStrip = GalleryStrip;
 
 /* ---------- Services overview (the four pillars) ---------- */
 function ServicesOverview() {

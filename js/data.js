@@ -202,12 +202,28 @@
       desc: "A dull, worn bedroom floor cleaned and refinished to a warm, guest-ready glow." },
   ];
 
+  /* Hero gallery strip — real cleans, scrolls in a loop near the top.
+     All images are rendered at the same height (CSS); width is whatever
+     each photo's aspect ratio gives. */
+  const GALLERY = [
+    "photos/gallery-01.jpg",
+    "photos/gallery-02.jpg",
+    "photos/gallery-03.jpg",
+    "photos/gallery-04.jpg",
+    "photos/gallery-05.jpg",
+    "photos/gallery-06.jpg",
+    "photos/gallery-07.jpg",
+    "photos/gallery-08.jpg",
+    "photos/gallery-09.jpg",
+    "photos/gallery-10.jpg",
+  ];
+
   window.DATA = {
     PHONE_DISPLAY, PHONE_TEL, EMAIL, FB_URL,
     SERVICES,
     PLAN, INCLUDED, VALUE_ROWS, VALUE_TOTAL, VALUE_PAY, EXTRAS,
     TUNING, MARKETING_TIERS, WHY_FLAT, ALACARTE, ALACARTE_NOTES,
     WIZARD_NEEDS, PROPERTY_TYPES, TURNOVER_VOLUME,
-    REVIEWS, BEFORE_AFTER,
+    REVIEWS, BEFORE_AFTER, GALLERY,
   };
 })();

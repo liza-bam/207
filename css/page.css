@@ -152,6 +152,29 @@ a { color: inherit; }
 .hero-badge-card .meta { font-size: var(--t-caption); color: var(--fg2); line-height: 1.4; }
 /* Headline spacing inside the hero copy block. */
 .hero-copy .h-display { margin-top: var(--sp-4); }
+/* ============================================================
+   GALLERY STRIP — slim marquee of real cleans, near the top
+   ============================================================ */
+.gallery-strip { overflow: hidden; padding: var(--sp-8) 0;
+  border-block: 1px solid var(--line); background: var(--bg); }
+.gallery-track { display: flex; gap: 14px; width: max-content;
+  animation: gallery-scroll 80s linear infinite; }
+.gallery-strip:hover .gallery-track { animation-play-state: paused; }
+.gallery-img { height: 180px; width: auto; flex: none;
+  border-radius: var(--r-md); object-fit: cover;
+  box-shadow: var(--shadow-xs); }
+@keyframes gallery-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (max-width: 720px) {
+  .gallery-img { height: 130px; }
+  .gallery-track { gap: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gallery-track { animation: none; }
+}
+
 .float-bubble { position: absolute; border-radius: 50%;
   background: radial-gradient(circle at 32% 28%, #fff8, transparent 42%),
     linear-gradient(140deg, var(--accent), var(--lime));
