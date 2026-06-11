@@ -17,20 +17,20 @@ function Wizard() {
   const [done, setDone] = useStateW(false);
 
   const toggleNeed = (id) =>
-    setNeeds((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id]));
+  setNeeds((s) => s.includes(id) ? s.filter((x) => x !== id) : [...s, id]);
   const setI = (k) => (e) => setInfo((v) => ({ ...v, [k]: e.target.value }));
 
   const canNext = [
-    needs.length > 0,
-    !!propType,
-    info.name.trim() && (info.phone.trim() || info.email.trim()),
-    true,
-  ][step];
+  needs.length > 0,
+  !!propType,
+  info.name.trim() && (info.phone.trim() || info.email.trim()),
+  true][
+  step];
 
-  const pct = done ? 100 : ((step + 1) / WIZ_STEPS.length) * 100;
-  const next = () => (step < WIZ_STEPS.length - 1 ? setStep(step + 1) : setDone(true));
+  const pct = done ? 100 : (step + 1) / WIZ_STEPS.length * 100;
+  const next = () => step < WIZ_STEPS.length - 1 ? setStep(step + 1) : setDone(true);
   const back = () => setStep(Math.max(0, step - 1));
-  const restart = () => { setStep(0); setNeeds([]); setPropType(""); setBeds(""); setBaths(""); setInfo({ name: "", phone: "", email: "", town: "" }); setDone(false); };
+  const restart = () => {setStep(0);setNeeds([]);setPropType("");setBeds("");setBaths("");setInfo({ name: "", phone: "", email: "", town: "" });setDone(false);};
 
   // map selected needs -> recommended services (preserve SERVICES order)
   const recIds = DW.WIZARD_NEEDS.filter((n) => needs.includes(n.id)).map((n) => n.serviceId);
@@ -40,39 +40,30 @@ function Wizard() {
   return (
     <section className="section" id="wizard" style={{ background: "var(--bg)" }} ref={ref}>
       <div className="wrap">
-        <div className="reveal-up" style={{ textAlign: "center", maxWidth: 620, margin: "0 auto 36px" }}>
-          <span className="eyebrow" style={{ justifyContent: "center" }}>Not sure where to start?</span>
-          <h2 className="h2" style={{ marginTop: 12 }}>Build your plan in a minute</h2>
-          <p className="lead" style={{ marginTop: 12 }}>
-            Tell us what's on your plate and we'll point you to the right mix of services &mdash; no pressure.
-          </p>
-        </div>
-
         <div className="wizard-shell reveal-up">
           {/* Aside */}
-          <div className="wizard-aside">
-            <span className="eyebrow">Your plan</span>
-            <h3>Let's find your fit</h3>
+          <div className="wizard-aside" style={{ borderWidth: "2px", borderStyle: "solid", borderColor: "rgb(1, 49, 45)" }}>
             <ol className="steps">
-              {WIZ_STEPS.map((s, i) => (
-                <li key={s} className={"step-item" + (i === step && !done ? " active" : "") + (i < step || done ? " done" : "")}>
+              {WIZ_STEPS.map((s, i) =>
+              <li key={s} className={"step-item" + (i === step && !done ? " active" : "") + (i < step || done ? " done" : "")}>
                   <span className="step-num">{i < step || done ? <IconW name="check" size={14} /> : i + 1}</span>
                   <span className="step-label">{s}</span>
                 </li>
-              ))}
+              )}
             </ol>
             <div className="aside-foot">
-              Prefer to talk it through?<br />
-              Call or text <strong style={{ color: "#fff" }}>{DW.PHONE_DISPLAY}</strong>
+              <span className="aside-foot-label">Prefer to talk it through?</span>
+              <a className="aside-call" href={"tel:" + DW.PHONE_TEL}>Call {DW.PHONE_DISPLAY}</a>
             </div>
           </div>
 
           {/* Main */}
-          <div className="wizard-main">
+          <div className="wizard-main" style={{ borderStyle: "solid", borderWidth: "2px" }}>
+            <h3 className="wizard-title">Build your housekeeping</h3>
             <div className="wizard-progress"><span style={{ width: pct + "%" }} /></div>
 
-            {done ? (
-              <div className="wizard-success">
+            {done ?
+            <div className="wizard-success">
                 <div className="success-ring"><IconW name="check" size={38} /></div>
                 <h3 className="h3">You're all set, {info.name.split(" ")[0] || "neighbor"}!</h3>
                 <p className="lead" style={{ marginTop: 10, maxWidth: 480, marginInline: "auto" }}>
@@ -80,34 +71,34 @@ function Wizard() {
                   {recServices.length === 1 ? " this service" : " these services"} and get you a clear quote.
                 </p>
                 <button className="btn btn-outline" style={{ marginTop: 22 }} onClick={restart}>Start over</button>
-              </div>
-            ) : (
-              <>
+              </div> :
+
+            <>
                 {/* STEP 0 — needs */}
-                {step === 0 && (
-                  <div className="wizard-body">
+                {step === 0 &&
+              <div className="wizard-body">
                     <div className="step-head">
                       <h3>What would you like help with?</h3>
                       <p>Pick everything that's on your plate &mdash; we'll match it to the right services.</p>
                     </div>
                     <div className="choice-grid">
                       {DW.WIZARD_NEEDS.map((s) => {
-                        const sel = needs.includes(s.id);
-                        return (
-                          <button type="button" key={s.id} className={"choice icon" + (sel ? " sel" : "")} onClick={() => toggleNeed(s.id)}>
+                    const sel = needs.includes(s.id);
+                    return (
+                      <button type="button" key={s.id} className={"choice icon" + (sel ? " sel" : "")} onClick={() => toggleNeed(s.id)}>
                             <span className="choice-ic"><IconW name={s.icon} size={18} /></span>
                             <span className="c-body"><span className="c-title">{s.title}</span><span className="c-sub">{s.sub}</span></span>
                             <span className="choice-check"><IconW name="check" size={13} /></span>
-                          </button>
-                        );
-                      })}
+                          </button>);
+
+                  })}
                     </div>
                   </div>
-                )}
+              }
 
                 {/* STEP 1 — property */}
-                {step === 1 && (
-                  <div className="wizard-body">
+                {step === 1 &&
+              <div className="wizard-body">
                     <div className="step-head">
                       <h3>Tell us about the property</h3>
                       <p>A few details so we can scope it right.</p>
@@ -115,12 +106,12 @@ function Wizard() {
                     <div className="field" style={{ marginBottom: 22 }}>
                       <label style={{ marginBottom: 10 }}>Property type</label>
                       <div className="choice-grid">
-                        {DW.PROPERTY_TYPES.map((p) => (
-                          <button type="button" key={p} className={"choice radio" + (propType === p ? " sel" : "")} onClick={() => setPropType(p)}>
-                            <span className="choice-check"><IconW name="check" size={13} /></span>
+                        {DW.PROPERTY_TYPES.map((p) =>
+                    <button type="button" key={p} className={"choice radio" + (propType === p ? " sel" : "")} onClick={() => setPropType(p)}>
                             <span className="c-title">{p}</span>
+                            <span className="choice-check"><IconW name="check" size={13} /></span>
                           </button>
-                        ))}
+                    )}
                       </div>
                     </div>
                     <div className="field-grid">
@@ -136,11 +127,11 @@ function Wizard() {
                       </div>
                     </div>
                   </div>
-                )}
+              }
 
                 {/* STEP 2 — contact */}
-                {step === 2 && (
-                  <div className="wizard-body">
+                {step === 2 &&
+              <div className="wizard-body">
                     <div className="step-head">
                       <h3>Where should we reach you?</h3>
                       <p>We'll send your matched services and answer any questions &mdash; usually the same day.</p>
@@ -151,20 +142,20 @@ function Wizard() {
                       <div className="field"><label>Phone</label><input className="input" type="tel" value={info.phone} onChange={setI("phone")} placeholder="(207) 555-0123" /></div>
                       <div className="field"><label>Email</label><input className="input" type="email" value={info.email} onChange={setI("email")} placeholder="you@email.com" /></div>
                     </div>
-                    <p className="muted" style={{ fontSize: 13, marginTop: 14 }}>Add a phone or an email so we can get back to you.</p>
+                    <p className="muted" style={{ fontSize: 16, marginTop: 14 }}>Add a phone or an email so we can get back to you.</p>
                   </div>
-                )}
+              }
 
                 {/* STEP 3 — recommendation */}
-                {step === 3 && (
-                  <div className="wizard-body">
+                {step === 3 &&
+              <div className="wizard-body">
                     <div className="step-head">
                       <h3>Here's your match</h3>
                       <p>Based on what you picked, these are the services we'd line up for you.</p>
                     </div>
                     <div className="rec-services">
-                      {recServices.map((s) => (
-                        <a key={s.id} className="rec-service" href={s.anchor}>
+                      {recServices.map((s) =>
+                  <a key={s.id} className="rec-service" href={s.anchor}>
                           <span className="rec-service-ic"><IconW name={s.icon} size={20} /></span>
                           <span className="rec-service-body">
                             <span className="rec-service-name">{s.name}</span>
@@ -172,21 +163,21 @@ function Wizard() {
                           </span>
                           <span className="rec-service-price">{s.price}</span>
                         </a>
-                      ))}
+                  )}
                     </div>
                     <div className="summary-list">
                       <div className="summary-row"><span className="k">You need</span><span className="v">{needLabels.join(", ") || "—"}</span></div>
                       <div className="summary-row"><span className="k">Property</span><span className="v">{[propType, beds && beds + " bd", baths && baths + " ba"].filter(Boolean).join(" · ") || "—"}</span></div>
                       <div className="summary-row"><span className="k">Contact</span><span className="v">{info.name}{info.town ? " · " + info.town : ""}</span></div>
                     </div>
-                    {recServices.length > 1 && (
-                      <p className="muted" style={{ fontSize: 13, marginTop: 14, display: "flex", gap: 8, alignItems: "flex-start" }}>
+                    {recServices.length > 1 &&
+                <p className="muted" style={{ fontSize: 16, marginTop: 14, display: "flex", gap: 8, alignItems: "flex-start" }}>
                         <IconW name="tag" size={16} style={{ color: "var(--accent)", flex: "none", marginTop: 1 }} />
                         Run them together for full coverage &mdash; or start with one and add more anytime.
                       </p>
-                    )}
+                }
                   </div>
-                )}
+              }
 
                 {/* footer nav */}
                 <div className="wizard-foot">
@@ -197,12 +188,12 @@ function Wizard() {
                   </button>
                 </div>
               </>
-            )}
+            }
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 }
 
 window.Wizard = Wizard;

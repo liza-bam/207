@@ -6,36 +6,36 @@
 /* ---------- Buttons ---------- */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  font-family: var(--font-sans); font-weight: 700; font-size: 16px;
-  line-height: 1; cursor: pointer; text-decoration: none;
-  padding: 13px 22px; border-radius: 0;
-  border: var(--bw) solid var(--teal-700);
+  font-family: var(--font-sans); font-weight: 700; font-size: 15px;
+  line-height: 1; border: 0; cursor: pointer; text-decoration: none;
+  padding: 14px 22px; border-radius: var(--r-pill);
   transition: transform var(--dur-fast) var(--ease-soft),
-              background var(--dur) var(--ease-soft), color var(--dur) var(--ease-soft);
+              background var(--dur) var(--ease-soft),
+              box-shadow var(--dur) var(--ease-soft), color var(--dur) var(--ease-soft);
   white-space: nowrap;
 }
-.btn:active { transform: translateY(1px); }
+.btn:active { transform: translateY(1px) scale(0.985); }
 
-.btn-primary { background: var(--brand); color: #fff; }
-.btn-primary:hover { background: var(--paper); color: var(--brand); }
+.btn-primary { background: var(--brand); color: #fff; box-shadow: var(--shadow-brand); }
+.btn-primary:hover { background: var(--brand-strong); color: #fff; }
 
 .btn-secondary { background: var(--teal-900); color: #fff; }
 .btn-secondary:hover { background: var(--teal-800); }
 
-.btn-outline { background: transparent; color: var(--brand); }
-.btn-outline:hover { background: var(--brand); color: #fff; }
+.btn-outline { background: transparent; color: var(--teal-900); box-shadow: inset 0 0 0 1.5px var(--line-2); }
+.btn-outline:hover { box-shadow: inset 0 0 0 1.5px var(--brand); color: var(--teal-700); }
 
-.btn-ghost { background: transparent; color: var(--teal-900); border-color: transparent; padding-left: 14px; padding-right: 14px; }
-.btn-ghost:hover { background: var(--bg-2); }
+.btn-ghost { background: transparent; color: var(--teal-700); padding-left: 14px; padding-right: 14px; }
+.btn-ghost:hover { background: var(--teal-100); }
 
-.btn-sm { padding: 10px 16px; font-size: 16px; }
+.btn-sm { padding: 10px 16px; font-size: 13px; }
 .btn-lg { padding: 17px 30px; font-size: 17px; }
 
 /* ---------- Form fields ---------- */
 .field { display: flex; flex-direction: column; gap: 6px; }
-.field > label { font-size: 16px; font-weight: 600; color: var(--fg2); }
+.field > label { font-size: 13px; font-weight: 600; color: var(--fg2); }
 .input, .select, .textarea {
-  font-family: var(--font-sans); font-size: 16px; color: var(--fg1);
+  font-family: var(--font-sans); font-size: 15px; color: var(--fg1);
   background: var(--paper); border: 1.5px solid var(--line-2);
   border-radius: var(--r-md); padding: 13px 15px; width: 100%;
   transition: border-color var(--dur) var(--ease-soft), box-shadow var(--dur) var(--ease-soft);
@@ -57,7 +57,7 @@
 /* ---------- Badges & chips ---------- */
 .badge {
   display: inline-flex; align-items: center; gap: 6px;
-  font-family: var(--font-sans); font-size: 16px; font-weight: 700;
+  font-family: var(--font-sans); font-size: 12px; font-weight: 700;
   padding: 5px 12px; border-radius: var(--r-pill); letter-spacing: 0.01em;
 }
 .badge-brand { background: var(--teal-100); color: var(--teal-700); }
@@ -69,7 +69,7 @@
 
 .chip {
   display: inline-flex; align-items: center; gap: 6px;
-  font-size: 16px; font-weight: 600; color: var(--teal-800);
+  font-size: 13px; font-weight: 600; color: var(--teal-800);
   background: var(--paper); border: 1.5px solid var(--line-2);
   padding: 8px 14px; border-radius: var(--r-pill); cursor: pointer;
   transition: all var(--dur) var(--ease-soft);
@@ -78,34 +78,5 @@
 .chip[aria-pressed="true"], .chip.active { background: var(--brand); border-color: var(--brand); color: var(--brand-ink); }
 
 /* ---------- Eyebrow helper ---------- */
-.eyebrow { font-family: var(--font-sans); font-size: 16px; font-weight: 700;
+.eyebrow { font-family: var(--font-sans); font-size: 13px; font-weight: 700;
   letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal-600); }
-
-/* ---------- Section heading block ----------
-   Wraps the eyebrow + h2 + lead at the top of a .section.
-   ALWAYS centered, reading-width capped. Rhythm between
-   eyebrow → h2 → lead is handled here instead of inline.
-   (The .section-head--center modifier is kept as a no-op for
-   backwards compatibility; do not rely on it.) */
-.section-head {
-  max-width: min(680px, 100%);
-  margin: 0 auto var(--sp-5);
-  text-align: center;
-}
-.section-head .eyebrow { justify-content: center; }
-.section-head > .h2   { margin-top: var(--sp-3); }
-.section-head > .lead { margin-top: var(--sp-3); }
-/* Tighter spacing — for a standalone eyebrow above a sub-grid. */
-.section-head--sm { margin-block: var(--sp-2) var(--sp-6); }
-
-/* ---------- Section background variants ----------
-   Use on a .section to swap its background. Keeps the
-   --bg-2 token decision out of JSX inline styles. */
-.section--alt { background: var(--bg-2); }
-
-/* ---------- Color utilities ----------
-   Tiny, generic text-color helpers so one-off colors
-   don't end up inline in JSX. Add more as the brand grows. */
-.t-lime         { color: var(--lime); }
-.t-paper        { color: var(--paper); }
-.t-on-dark-soft { color: var(--fg-on-dark); }

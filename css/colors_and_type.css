@@ -8,9 +8,9 @@
 
 :root {
   /* ---- Brand scale: teal → green analogous (from brand palette) ---- */
-  --teal-900: #00312D;  /* ink — primary text */
-  --teal-800: #004B45;
-  --teal-700: #005C58;  /* deep teal */
+  --teal-900: #0E6E72;  /* ink — dark teal (brand) */
+  --teal-800: #0E6E72;
+  --teal-700: #0E6E72;  /* deep teal */
   --teal-600: #007F7A;  /* teal */
   --teal-500: #07A3A2;  /* cyan-teal */
   --teal-400: #00D4A3;  /* PRIMARY — spring teal (the banner) */
@@ -18,9 +18,9 @@
   --teal-200: #9FF0DC;
   --teal-100: #D6F8EF;
 
-  --brand:        #00D4A3;  /* primary action / brand fill */
-  --brand-strong: #00B589;  /* hover / pressed */
-  --brand-ink:    #00312D;  /* text/icon on light brand surfaces */
+  --brand:        #0E6E72;  /* primary action / brand fill — dark teal */
+  --brand-strong: #0E6E72;  /* hover / pressed */
+  --brand-ink:    #0E6E72;  /* text/icon on light brand surfaces */
 
   /* ---- Accents (use sparingly) ---- */
   --lime:  #D6FF82;  /* soft highlight, badges, illustration pop */
@@ -28,14 +28,14 @@
 
   /* ---- Neutrals (teal-tinted) ---- */
   --paper:  #FFFFFF;
-  --bg:     #F4F8F6;  /* page background */
-  --bg-2:   #EAF2EF;  /* alt section background */
-  --bg-3:   #E0EBE7;
-  --line:   #E1EAE6;  /* hairline borders */
-  --line-2: #CFDED9;  /* stronger border */
+  --bg:     #FFFFFF;  /* page background — white */
+  --bg-2:   #FFFFFF;  /* alt section background — white */
+  --bg-3:   #EEEEEE;
+  --line:   #0E6E72;  /* hard borders — dark teal */
+  --line-2: #0E6E72;  /* hard borders — dark teal */
 
   /* ---- Foreground / text ---- */
-  --fg1: #00312D;  /* headings & primary body */
+  --fg1: #0E6E72;  /* headings & primary body */
   --fg2: #3F5C57;  /* secondary text */
   --fg3: #6E8A85;  /* muted / captions */
   --fg-on-brand: #00312D;  /* text on spring-teal */
@@ -51,11 +51,11 @@
   --info: #07A3A2;
 
   /* ---- Dark surface (footers / CTAs) ---- */
-  --ink-surface: #00312D;
-  --ink-surface-2: #00413A;
+  --ink-surface: #0E6E72;
+  --ink-surface-2: #0E6E72;
 
   /* ============== Typography ============== */
-  --font-display: 'Bricolage Grotesque', 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-display: 'Archivo', 'Bricolage Grotesque', system-ui, sans-serif;
   --font-sans:    'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 
   /* Type scale (px) */
@@ -66,9 +66,9 @@
   --t-h4: 22px;
   --t-body-lg: 19px;
   --t-body: 17px;
-  --t-small: 15px;
-  --t-caption: 13px;
-  --t-eyebrow: 13px;
+  --t-small: 16px;
+  --t-caption: 16px;
+  --t-eyebrow: 16px;
 
   --lh-tight: 1.05;
   --lh-snug: 1.18;
@@ -79,21 +79,24 @@
   --tracking-normal: 0;
   --tracking-eyebrow: 0.14em;
 
-  /* ============== Radii (kept deliberately small: 3 + pill) ============== */
-  --r-sm: 10px;   /* inputs, chips, small controls */
-  --r-md: 16px;   /* tiles, media, mid surfaces */
-  --r-lg: 24px;   /* cards & large surfaces */
-  --r-pill: 999px;/* buttons, badges, fully round */
+  /* ============== Radii (brutalist: all square) ============== */
+  --r-sm: 0;
+  --r-md: 0;
+  --r-lg: 0;
+  --r-pill: 0;
   /* legacy aliases */
-  --r-xl: var(--r-lg);
-  --r-2xl: var(--r-lg);
+  --r-xl: 0;
+  --r-2xl: 0;
 
-  /* ============== Shadows (teal-tinted, soft) ============== */
-  --shadow-xs: 0 1px 2px rgba(0,49,45,0.06);
-  --shadow-sm: 0 2px 8px -2px rgba(0,49,45,0.10);
-  --shadow-md: 0 10px 28px -10px rgba(0,49,45,0.16);
-  --shadow-lg: 0 24px 56px -16px rgba(0,49,45,0.22);
-  --shadow-brand: 0 14px 30px -10px rgba(0,212,163,0.45);
+  /* Uniform frame thickness across buttons, cards, frames. */
+  --bw: 2px;
+
+  /* ============== Shadows (flat — brutalist) ============== */
+  --shadow-xs: none;
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+  --shadow-brand: none;
 
   /* ============== Spacing (4pt base) ============== */
   --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;

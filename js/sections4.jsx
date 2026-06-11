@@ -19,8 +19,8 @@ function BeforeAfter() {
           </p>
         </div>
         <div className="ba-list">
-          {D4.BEFORE_AFTER.map((b, i) => (
-            <figure key={i} className="ba-pair reveal-up" style={{ transitionDelay: (i % 2) * 70 + "ms" }}>
+          {D4.BEFORE_AFTER.map((b, i) =>
+          <figure key={i} className="ba-pair reveal-up" style={{ transitionDelay: i % 2 * 70 + "ms" }}>
               <div className="ba-shots">
                 <div className="ba-shot">
                   <img src={b.before} alt={b.label + " — before"} loading="lazy" />
@@ -36,11 +36,11 @@ function BeforeAfter() {
                 <p>{b.desc}</p>
               </figcaption>
             </figure>
-          ))}
+          )}
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 }
 
 /* ---------- Reviews + Facebook ---------- */
@@ -55,8 +55,8 @@ function ReviewsFB() {
         </div>
         <div className="reviews-layout">
           <div className="review-grid">
-            {D4.REVIEWS.map((r, i) => (
-              <article key={i} className="review-card reveal-up" style={{ transitionDelay: (i % 2) * 60 + "ms" }}>
+            {D4.REVIEWS.map((r, i) =>
+            <article key={i} className="review-card reveal-up" style={{ transitionDelay: i % 2 * 60 + "ms" }}>
                 <div className="review-stars">{"★".repeat(r.stars)}</div>
                 <p className="review-text">“{r.text}”</p>
                 <div className="review-who">
@@ -67,7 +67,7 @@ function ReviewsFB() {
                   </span>
                 </div>
               </article>
-            ))}
+            )}
           </div>
 
           <aside className="fb-card follow-only reveal-up">
@@ -87,17 +87,17 @@ function ReviewsFB() {
           </aside>
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 }
 
 /* ---------- Booking / Contact form ---------- */
 function Booking({ formRef }) {
   const ref = useReveal4();
   const [sent, setSent] = useState4(false);
-  const [form, setForm] = useState4({ name: "", email: "", phone: "", town: "", interest: "Housekeeping subscription", message: "" });
+  const [form, setForm] = useState4({ name: "", email: "", phone: "", town: "", interest: "Housekeeping", message: "" });
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
-  const submit = (e) => { e.preventDefault(); setSent(true); };
+  const submit = (e) => {e.preventDefault();setSent(true);};
 
   return (
     <section className="section" id="book" ref={ref}>
@@ -122,24 +122,24 @@ function Booking({ formRef }) {
               </a>
               <div className="contact-line">
                 <span className="ci"><Icon4 name="pin" /></span>
-                <span><span className="cl">Service area</span><br /><span className="cv">Central, Midcoast, Western &amp; Northern Maine</span></span>
+                <span><span className="cl">Service area</span><br /><span className="cv">{D4.SERVICE_AREA.line}</span></span>
               </div>
             </div>
             <Bubble4 size={120} className="book-info-deco-bubble" />
           </div>
 
           <div className="book-form">
-            {sent ? (
-              <div className="wizard-success">
+            {sent ?
+            <div className="wizard-success">
                 <div className="success-ring"><Icon4 name="check" size={38} /></div>
                 <h3 className="h3">Thanks, {form.name || "neighbor"}!</h3>
                 <p className="lead">
                   Your request is in. We'll reach out at {form.phone || form.email || "your contact"} shortly to talk through the details.
                 </p>
-                <button className="btn btn-outline" onClick={() => { setSent(false); }}>Send another</button>
-              </div>
-            ) : (
-              <form onSubmit={submit}>
+                <button className="btn btn-outline" onClick={() => {setSent(false);}}>Send another</button>
+              </div> :
+
+            <form onSubmit={submit}>
                 <div className="row2">
                   <div className="field"><label>Your name</label><input className="input" required value={form.name} onChange={set("name")} placeholder="Jane Smith" /></div>
                   <div className="field"><label>Town</label><input className="input" value={form.town} onChange={set("town")} placeholder="Rangeley" /></div>
@@ -151,10 +151,10 @@ function Booking({ formRef }) {
                 <div className="field">
                   <label>I'm interested in</label>
                   <select className="select" value={form.interest} onChange={set("interest")}>
-                    <option>Housekeeping subscription</option>
-                    <option>Tuning my property (consult)</option>
-                    <option>Booking &amp; marketing</option>
-                    <option>A one-off à la carte job</option>
+                    <option>Housekeeping</option>
+                    <option>Staging &amp; renovation</option>
+                    <option>Booking &amp; Marketing</option>
+                    <option>Single Services</option>
                     <option>Not sure yet — help me decide</option>
                   </select>
                 </div>
@@ -162,12 +162,12 @@ function Booking({ formRef }) {
                 <button className="btn btn-primary btn-block btn-lg" type="submit">Request my quote</button>
                 <p className="form-disclaimer">We'll never share your info. Expect a reply the same day.</p>
               </form>
-            )}
+            }
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 }
 
 /* ---------- Footer ---------- */
@@ -181,24 +181,24 @@ function Footer() {
               <img className="mark" src="assets/logo-mark-white.svg" alt="" />
               <span className="fn">207 HouseKeeping</span>
             </div>
-            <p className="footer-about">
-              A local, family-run cleaning &amp; property-management team serving Maine. Cleaning, tuning,
-              booking &amp; marketing, and any one-off job &mdash; handled, at flat and fair pricing.
+            <p className="footer-about" style={{ fontSize: "16px" }}>
+              A local cleaning &amp; property-management team specializing in <strong>Central Maine</strong>.
+              Cleaning, tuning, booking &amp; marketing, and any one-off job &mdash; handled, at flat and fair pricing.
             </p>
           </div>
           <div className="footer-col">
             <h5>Services</h5>
-            <a href="#housekeeping">Housekeeping</a>
-            <a href="#tuning">Tuning</a>
-            <a href="#marketing">Booking &amp; marketing</a>
-            <a href="#alacarte">À la carte</a>
+            <a href="#housekeeping">Central Maine Housekeeping Subscription</a>
+            <a href="#tuning">Staging and Renovations</a>
+            <a href="#marketing">Digital Services</a>
+            <a href="#alacarte">All Serices</a>
           </div>
           <div className="footer-col">
             <h5>Get in touch</h5>
             <a href={"tel:" + D4.PHONE_TEL}>{D4.PHONE_DISPLAY}</a>
             <a href={"mailto:" + D4.EMAIL}>{D4.EMAIL}</a>
             <a href={D4.FB_URL} target="_blank" rel="noopener">Facebook</a>
-            <p>Central, Midcoast, Western &amp; Northern Maine</p>
+            <p style={{ fontWeight: "700" }}>{D4.SERVICE_AREA.towns.join(" \u00b7 ")}</p>
           </div>
         </div>
         <div className="footer-bottom">
@@ -206,8 +206,8 @@ function Footer() {
           <span>Sweep up the savings!</span>
         </div>
       </div>
-    </footer>
-  );
+    </footer>);
+
 }
 
 Object.assign(window, { BeforeAfter, ReviewsFB, Booking, Footer });

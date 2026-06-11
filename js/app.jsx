@@ -2,8 +2,8 @@
 const { useEffect: useEffectA } = React;
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "accent": "#00D4A3",
-  "headline": "Hi, I'm Becky.",
+  "accent": "#005C58",
+  "headline": "Vacation rentals management.",
   "bubbles": true
 }/*EDITMODE-END*/;
 
@@ -29,14 +29,13 @@ function App() {
       <BackgroundBubbles />
       <Header onStart={onStart} />
       <main>
-        <Hero headline={t.headline} onStart={onStart} bubbles={t.bubbles} />
+        <Hero headline={t.headline} onStart={onStart} onContact={onContact} />
+        <ServicesOverview />
         <GalleryStrip />
         <Wizard />
-        <ServicesOverview />
         <Housekeeping onStart={onStart} />
         <Included />
         <Extras />
-        <ValueTable />
         <Tuning onContact={onContact} />
         <Marketing onContact={onContact} />
         <Alacarte onContact={onContact} />
@@ -50,7 +49,7 @@ function App() {
       <TweaksPanel>
         <TweakSection label="Brand" />
         <TweakColor label="Accent color" value={t.accent}
-          options={["#00D4A3", "#07A3A2", "#00B589", "#005C58"]}
+          options={["#005C58", "#00312D", "#0E8C84", "#14B568"]}
           onChange={(v) => setTweak("accent", v)} />
         <TweakToggle label="Soap-bubble motif" value={t.bubbles}
           onChange={(v) => setTweak("bubbles", v)} />
