@@ -46,6 +46,23 @@ function Bubble({ size, className }) {
 window.useReveal = useReveal;
 window.Bubble = Bubble;
 
+/* ---------- Download full service list button ----------
+   Reusable lime CTA that downloads the services cheat sheet PDF.
+   Used in the header, after each service section, inside the
+   savings popup, and in the footer. */
+function DownloadServices({ size, className }) {
+  const sizeCls = size === "sm" ? " btn-sm" : size === "lg" ? " btn-lg" : "";
+  const extra = className ? " " + className : "";
+  return (
+    <a
+      className={"btn btn-lime" + sizeCls + extra}
+      href="assets/207-services-cheat-sheet.pdf"
+      download="207-HouseKeeping-Services.pdf">
+      Download full service list
+    </a>);
+}
+window.DownloadServices = DownloadServices;
+
 /* ---------- Page-wide floating soap bubbles (brand motif) ----------
    Sits behind all content (z-index:-1): shows through the lighter
    sections, naturally masked by the deeper --bg-2 / dark sections.
@@ -123,6 +140,7 @@ function Header() {
           {links.map((l) => <a key={l.href} href={l.href} className={l.theme ? "theme-" + l.theme : null} onClick={closeMenu}>{l.label}</a>)}
         </nav>
         <div className="header-cta">
+          <a className="btn btn-lime header-download" href="assets/207-services-cheat-sheet.pdf" download="207-HouseKeeping-Services.pdf">Download full service list</a>
           <a className="btn btn-primary header-text" href={"sms:" + D.PHONE_TEL}>Text us</a>
           <button
             className="menu-toggle"

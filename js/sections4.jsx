@@ -201,6 +201,9 @@ function Footer() {
             <p style={{ fontWeight: "700" }}>{D4.SERVICE_AREA.towns.join(" \u00b7 ")}</p>
           </div>
         </div>
+        <div className="footer-download">
+          <a className="btn btn-lime btn-lg" href="assets/207-services-cheat-sheet.pdf" download="207-HouseKeeping-Services.pdf">Download full service list</a>
+        </div>
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} 207 HouseKeeping · Property Management. All rights reserved.</span>
           <span>Sweep up the savings!</span>

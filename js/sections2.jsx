@@ -78,6 +78,7 @@ function SavingsModal({ open, onClose }) {
         <div className="modal-actions">
           <a className="btn btn-primary" href={mailto}>Email me this table</a>
           <button className="btn btn-outline" onClick={() => window.print()}>Print / Save PDF</button>
+          <a className="btn btn-lime" href="assets/207-services-cheat-sheet.pdf" download="207-HouseKeeping-Services.pdf">Download full service list</a>
         </div>
       </div>
     </div>);
@@ -150,6 +151,9 @@ function Extras() {
         <div className="incl-savings extra-cta reveal-up" style={{ backgroundColor: "rgb(158, 255, 203)" }}>
           <span className="incl-savings-text">Explore the full list of our services</span>
           <a className="btn btn-primary" href="#alacarte">All Services</a>
+        </div>
+        <div className="download-strip reveal-up">
+          <a className="btn btn-lime btn-lg" href="assets/207-services-cheat-sheet.pdf" download="207-HouseKeeping-Services.pdf">Download full service list</a>
         </div>
       </div>
     </section>);

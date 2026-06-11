@@ -80,6 +80,16 @@ a { color: inherit; }
    never goes into the hamburger drawer. */
 .header-text { white-space: nowrap; }
 .header-text svg { width: 17px; height: 17px; }
+/* Lime "Download full service list" pill in the header — visible
+   on desktop only; hidden on narrow viewports to keep room for
+   logo + Text us + hamburger. The button still appears after
+   each section, inside the popup, and in the footer. */
+.header-download { white-space: nowrap; }
+
+/* Centered lime-CTA strip placed after each major service
+   section. Reusable, annotated, global. */
+.download-strip { display: flex; justify-content: center; margin-top: var(--sp-8); }
+.footer-download { display: flex; justify-content: center; padding: var(--sp-6) 0 var(--sp-4); }
 
 /* Subtle drop shadow when the page has scrolled. */
 .site-header.is-scrolled { box-shadow: var(--shadow-sm); }
@@ -967,6 +977,9 @@ a { color: inherit; }
    ============================================================ */
 @media (max-width: 1199px) {
   .menu-toggle { display: inline-flex; }
+  /* Hide the lime download pill in the header on tighter widths
+     so the logo + Text us + hamburger keep the header tidy. */
+  .header-download { display: none; }
 
   .nav {
     position: absolute;

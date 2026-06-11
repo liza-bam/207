@@ -50,6 +50,10 @@ function Tuning({ onContact }) {
             </React.Fragment>
           )}
         </div>
+
+        <div className="download-strip reveal-up">
+          <a className="btn btn-lime btn-lg" href="assets/207-services-cheat-sheet.pdf" download="207-HouseKeeping-Services.pdf">Download full service list</a>
+        </div>
       </div>
     </section>);
 
@@ -86,6 +90,10 @@ function Marketing({ onContact }) {
               </button>
             </div>
           )}
+        </div>
+
+        <div className="download-strip reveal-up">
+          <a className="btn btn-lime btn-lg" href="assets/207-services-cheat-sheet.pdf" download="207-HouseKeeping-Services.pdf">Download full service list</a>
         </div>
       </div>
     </section>);
@@ -136,6 +144,10 @@ function Alacarte({ onContact }) {
           <button className="btn btn-primary btn-lg alc-cta" onClick={onContact}>
             Request a job <Icon3 name="arrow" size={16} />
           </button>
+        </div>
+
+        <div className="download-strip reveal-up">
+          <a className="btn btn-lime btn-lg" href="assets/207-services-cheat-sheet.pdf" download="207-HouseKeeping-Services.pdf">Download full service list</a>
         </div>
       </div>
     </section>);
