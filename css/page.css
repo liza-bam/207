@@ -1051,6 +1051,16 @@ a { color: inherit; }
 }
 @media (max-width: 720px) {
   .indiv-grid { grid-template-columns: 1fr; }
+  /* Add-ons collapse into a tight 2×2 on phones so the section
+     isn't a tall vertical stack of four full-width cards. */
+  .extra-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .extra-card { padding: 18px 14px; }
+  .extra-icon { width: 40px; height: 40px; margin-bottom: 10px; }
+  .extra-card h4 { font-size: 17px; margin-bottom: 6px; }
+  .extra-price { gap: 6px; margin-bottom: 0; }
+  .extra-price .was, .extra-price .amt { font-size: 26px; }
+  .extra-price .unit { font-size: 12px; flex-basis: 100%; }
+  .extra-flag { right: 10px; font-size: 11px; padding: 4px 9px; }
   .alc-foot { flex-direction: column; align-items: stretch; }
   .alc-cta { width: 100%; justify-content: center; }
   .review-grid { grid-template-columns: 1fr; }
