@@ -1067,22 +1067,28 @@ a { color: inherit; }
   .field-grid, .choice-grid, .book-form .row2 { grid-template-columns: 1fr; }
   .footer-top { grid-template-columns: 1fr; gap: 28px; }
   .hero-badge-card { left: 8px; }
-  /* value table -> stacked cards */
-  .vt-head { display: none; }
-  .vt-row, .vt-total, .vt-save, .vt-pay { grid-template-columns: 1fr auto; gap: 6px 14px;
-    padding: 16px 20px; }
-  .vt-row span[data-k], .vt-total span, .vt-pay span { }
-  .vt-row span[data-k="Pay as you go"]::before,
-  .vt-row span[data-k="With your plan"]::before,
-  .vt-row span[data-k="Monthly value"]::before {
-    content: attr(data-k) ": "; font-size: 16px; color: var(--fg3);
-    font-weight: 600; text-transform: none; letter-spacing: 0; }
-  .vt-row .vt-svc { grid-column: 1 / -1; font-size: 16px; margin-bottom: 4px; }
-  .vt-row span[data-k="Pay as you go"] { grid-column: 1 / -1; }
-  .vt-row span[data-k="With your plan"] { grid-column: 1; }
-  .vt-row .num { grid-column: 2; }
+  /* Savings popup table on mobile — keep every row on ONE line.
+     Shrink the row font + service name, and let the service
+     column ellipsis-truncate if it ever runs out of room. */
+  .vt-head, .vt-row, .vt-total, .vt-save, .vt-pay {
+    grid-template-columns: 1fr 38px auto;
+    gap: 0 8px;
+    padding: 12px 14px;
+  }
+  .vt-head { font-size: 11px; }
+  .vt-row { font-size: 13px; }
+  .vt-svc {
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .vt-row .num { font-size: 13px; }
+  .vt-total .vt-svc, .vt-save .vt-svc, .vt-pay .vt-svc { font-size: 14px; }
+  .vt-total .num.big, .vt-save .num.big, .vt-pay .num.big { font-size: 16px; }
+  /* Hide any legacy per-cell pseudo-labels (for the older 4-col table). */
+  .vt-row span[data-k]::before { content: none; }
   .vt-spacer { display: none; }
-  .vt-total .vt-svc, .vt-pay .vt-svc { grid-column: 1; }
   .vt-totlabel { display: none; }
 }
 
