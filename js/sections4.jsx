@@ -163,16 +163,16 @@ function Booking({ formRef }) {
                 <button className="btn btn-outline" onClick={() => {setSent(false);}}>Send another</button>
               </div> :
 
-            <form onSubmit={submit} noValidate>
-                {/* Honeypot — bots fill this; Web3Forms drops any submission where it's non-empty */}
+            <form onSubmit={submit}>
+                {/* Honeypot — bots fill this; worker drops any submission where it's non-empty */}
                 <input className="honeypot" type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" aria-hidden="true" />
                 <div className="row2">
                   <div className="field"><label>Your name</label><input className="input" required value={form.name} onChange={set("name")} placeholder="Jane Smith" /></div>
-                  <div className="field"><label>Town</label><input className="input" value={form.town} onChange={set("town")} placeholder="Rangeley" /></div>
+                  <div className="field"><label>Town</label><input className="input" required value={form.town} onChange={set("town")} placeholder="Rangeley" /></div>
                 </div>
                 <div className="row2">
-                  <div className="field"><label>Email</label><input className="input" type="email" value={form.email} onChange={set("email")} placeholder="you@email.com" /></div>
-                  <div className="field"><label>Phone</label><input className="input" type="tel" value={form.phone} onChange={set("phone")} placeholder="(207) 555-0123" /></div>
+                  <div className="field"><label>Email</label><input className="input" type="email" required value={form.email} onChange={set("email")} placeholder="you@email.com" /></div>
+                  <div className="field"><label>Phone</label><input className="input" type="tel" required value={form.phone} onChange={set("phone")} placeholder="(207) 555-0123" /></div>
                 </div>
                 <div className="field">
                   <label>I'm interested in</label>

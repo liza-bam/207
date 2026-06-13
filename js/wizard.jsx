@@ -15,27 +15,66 @@ function Wizard() {
   const [baths, setBaths] = useStateW("");
   const [info, setInfo] = useStateW({ name: "", phone: "", email: "", town: "" });
   const [done, setDone] = useStateW(false);
+  const [submitting, setSubmitting] = useStateW(false);
+  const [error, setError] = useStateW("");
 
   const toggleNeed = (id) =>
   setNeeds((s) => s.includes(id) ? s.filter((x) => x !== id) : [...s, id]);
   const setI = (k) => (e) => setInfo((v) => ({ ...v, [k]: e.target.value }));
 
+  // All fields mandatory (except notes — wizard doesn't collect notes).
   const canNext = [
   needs.length > 0,
-  !!propType,
-  info.name.trim() && (info.phone.trim() || info.email.trim()),
+  !!propType && !!beds && !!baths,
+  info.name.trim() && info.phone.trim() && info.email.trim() && info.town.trim(),
   true][
   step];
 
   const pct = done ? 100 : (step + 1) / WIZ_STEPS.length * 100;
-  const next = () => step < WIZ_STEPS.length - 1 ? setStep(step + 1) : setDone(true);
   const back = () => setStep(Math.max(0, step - 1));
-  const restart = () => {setStep(0);setNeeds([]);setPropType("");setBeds("");setBaths("");setInfo({ name: "", phone: "", email: "", town: "" });setDone(false);};
+  const restart = () => {setStep(0);setNeeds([]);setPropType("");setBeds("");setBaths("");setInfo({ name: "", phone: "", email: "", town: "" });setDone(false);setError("");};
 
   // map selected needs -> recommended services (preserve SERVICES order)
   const recIds = DW.WIZARD_NEEDS.filter((n) => needs.includes(n.id)).map((n) => n.serviceId);
   const recServices = DW.SERVICES.filter((s) => recIds.includes(s.id));
   const needLabels = DW.WIZARD_NEEDS.filter((n) => needs.includes(n.id)).map((n) => n.title);
+
+  const submit = async () => {
+    if (submitting) return;
+    setError("");
+    setSubmitting(true);
+    const message = [
+      "Needs:",
+      ...needLabels.map((n) => "· " + n),
+      "",
+      `Property: ${propType}, ${beds} bd / ${baths} ba`,
+      "",
+      "Recommended services:",
+      ...recServices.map((s) => "· " + s.name),
+    ].join("\n");
+    try {
+      const res = await fetch(DW.FORM_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({
+          name: info.name,
+          email: info.email,
+          phone: info.phone,
+          town: info.town,
+          message,
+          source: "Wizard request",
+          botcheck: "" }) });
+
+      if (!res.ok) throw new Error("submit-failed");
+      setDone(true);
+    } catch (err) {
+      setError("We couldn't send that just now. Please try again, or email us directly.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const next = () => step < WIZ_STEPS.length - 1 ? setStep(step + 1) : submit();
 
   return (
     <section className="section" id="wizard" style={{ background: "var(--bg)" }} ref={ref}>
@@ -142,7 +181,7 @@ function Wizard() {
                       <div className="field"><label>Phone</label><input className="input" type="tel" value={info.phone} onChange={setI("phone")} placeholder="(207) 555-0123" /></div>
                       <div className="field"><label>Email</label><input className="input" type="email" value={info.email} onChange={setI("email")} placeholder="you@email.com" /></div>
                     </div>
-                    <p className="muted" style={{ fontSize: 16, marginTop: 14 }}>Add a phone or an email so we can get back to you.</p>
+                    <p className="muted" style={{ fontSize: 16, marginTop: 14 }}>All fields needed so we can match you to the right service.</p>
                   </div>
               }
 
@@ -179,12 +218,18 @@ function Wizard() {
                   </div>
               }
 
+                {error && step === WIZ_STEPS.length - 1 &&
+              <div className="form-error" role="alert" style={{ marginTop: 16 }}>
+                    <span>{error}</span>
+                    <a className="form-error-link" href={"mailto:" + DW.EMAIL}>Email {DW.EMAIL}</a>
+                  </div>
+              }
                 {/* footer nav */}
                 <div className="wizard-foot">
-                  {step > 0 && <button className="btn btn-ghost" onClick={back}>← Back</button>}
+                  {step > 0 && <button className="btn btn-ghost" onClick={back} disabled={submitting}>← Back</button>}
                   <span className="spacer" />
-                  <button className="btn btn-primary" disabled={!canNext} onClick={next} style={!canNext ? { opacity: 0.45, cursor: "not-allowed" } : null}>
-                    {step === WIZ_STEPS.length - 1 ? "Send my request" : "Continue →"}
+                  <button className="btn btn-primary" disabled={!canNext || submitting} onClick={next} style={(!canNext || submitting) ? { opacity: 0.45, cursor: "not-allowed" } : null}>
+                    {step === WIZ_STEPS.length - 1 ? (submitting ? "Sending…" : "Send my request") : "Continue →"}
                   </button>
                 </div>
               </>

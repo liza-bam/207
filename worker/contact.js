@@ -7,7 +7,7 @@
 
 const TO = "support@207housekeeping.com";
 const CC = "sandy@tayts.com";
-const FROM_EMAIL = "noreply@207housekeeping.com";
+const FROM_EMAIL = "support@207housekeeping.com";
 const FROM_NAME = "207 HouseKeeping";
 
 const CORS = {
@@ -91,7 +91,7 @@ function clip(s, n) {
 }
 function row(label, value) {
   if (!value) return "";
-  return `<tr><td class="k">${esc(label)}</td><td class="v">${esc(value)}</td></tr>`;
+  return `<tr><td class="k">${esc(label)}</td><td class="v">${esc(value).replace(/\n/g, "<br>")}</td></tr>`;
 }
 
 // ---------- Notification (internal) ----------
