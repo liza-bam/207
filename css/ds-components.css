@@ -53,6 +53,23 @@
 }
 .textarea { resize: vertical; min-height: 96px; }
 
+/* Honeypot field — visible to bots, hidden off-screen from humans and AT.
+   We avoid display:none because some bots skip those. */
+.honeypot {
+  position: absolute; left: -10000px; top: auto;
+  width: 1px; height: 1px; overflow: hidden;
+}
+
+/* Inline form error — appears above the submit button on submission failure. */
+.form-error {
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 12px 14px; margin: 8px 0 4px;
+  background: var(--paper); border: 1.5px solid var(--danger, #c0392b);
+  border-radius: var(--r-md);
+  color: var(--fg1); font-size: 15px;
+}
+.form-error-link { color: var(--brand); font-weight: 600; text-decoration: underline; }
+
 /* ---------- Cards ---------- */
 .card-surface {
   background: var(--paper); border: 1px solid var(--line);

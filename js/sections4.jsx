@@ -95,9 +95,33 @@ function ReviewsFB() {
 function Booking({ formRef }) {
   const ref = useReveal4();
   const [sent, setSent] = useState4(false);
+  const [submitting, setSubmitting] = useState4(false);
+  const [error, setError] = useState4("");
   const [form, setForm] = useState4({ name: "", email: "", phone: "", town: "", interest: "Housekeeping", message: "" });
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
-  const submit = (e) => {e.preventDefault();setSent(true);};
+  const submit = async (e) => {
+    e.preventDefault();
+    if (submitting) return;
+    setError("");
+    setSubmitting(true);
+    try {
+      const res = await fetch(D4.FORM_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({
+          ...form,
+          source: "Contact form",
+          botcheck: e.target.botcheck ? e.target.botcheck.value : "" })
+
+      });
+      if (!res.ok) throw new Error("submit-failed");
+      setSent(true);
+    } catch (err) {
+      setError("We couldn't send that just now. Please try again, or email us directly.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <section className="section" id="book" ref={ref}>
@@ -139,7 +163,9 @@ function Booking({ formRef }) {
                 <button className="btn btn-outline" onClick={() => {setSent(false);}}>Send another</button>
               </div> :
 
-            <form onSubmit={submit}>
+            <form onSubmit={submit} noValidate>
+                {/* Honeypot — bots fill this; Web3Forms drops any submission where it's non-empty */}
+                <input className="honeypot" type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" aria-hidden="true" />
                 <div className="row2">
                   <div className="field"><label>Your name</label><input className="input" required value={form.name} onChange={set("name")} placeholder="Jane Smith" /></div>
                   <div className="field"><label>Town</label><input className="input" value={form.town} onChange={set("town")} placeholder="Rangeley" /></div>
@@ -159,7 +185,15 @@ function Booking({ formRef }) {
                   </select>
                 </div>
                 <div className="field"><label>Anything else?</label><textarea className="textarea" value={form.message} onChange={set("message")} placeholder="Tell us about your property, beds/baths, and what you need." /></div>
-                <button className="btn btn-primary btn-block btn-lg" type="submit">Request my quote</button>
+                {error &&
+              <div className="form-error" role="alert">
+                    <span>{error}</span>
+                    <a className="form-error-link" href={"mailto:" + D4.EMAIL}>Email {D4.EMAIL}</a>
+                  </div>
+              }
+                <button className="btn btn-primary btn-block btn-lg" type="submit" disabled={submitting}>
+                  {submitting ? "Sending…" : "Request my quote"}
+                </button>
                 <p className="form-disclaimer">We'll never share your info. Expect a reply the same day.</p>
               </form>
             }

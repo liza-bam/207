@@ -7,6 +7,10 @@
   const EMAIL = "info@207housekeeping.com";
   const FB_URL = "https://www.facebook.com/housekeeping207/";
 
+  // Form delivery via our Cloudflare Worker (worker/contact.js).
+  // The Worker holds the Brevo API key and routes both Contact and Wizard.
+  const FORM_ENDPOINT = "https://207housekeeping-forms.alexandra-tayts.workers.dev/";
+
   /* =========================================================
      SERVICE AREA — single source of truth.
      Core (actively serve): Central Maine — Androscoggin & Cumberland,
@@ -237,7 +241,7 @@
   ];
 
   window.DATA = {
-    PHONE_DISPLAY, PHONE_TEL, EMAIL, FB_URL, SERVICE_AREA,
+    PHONE_DISPLAY, PHONE_TEL, EMAIL, FB_URL, FORM_ENDPOINT, SERVICE_AREA,
     SERVICES,
     PLAN, INCLUDED, VALUE_ROWS, VALUE_TOTAL, VALUE_PAY, VALUE_SAVINGS, EXTRAS,
     TUNING, MARKETING_TIERS, WHY_FLAT, ALACARTE, ALACARTE_NOTES,

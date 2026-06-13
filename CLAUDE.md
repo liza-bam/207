@@ -96,6 +96,17 @@ bottom; don't rewrite history.
 3. **Test the auto-reply email end-to-end** — once the popup div is embedded and Elfsight's auto-reply is set up (Email Notifications → Subscriber confirmation, paste `emails/coupon-autoreply.html`), submit the form with a real email and confirm the coupon arrives.
 4. **Verify "Enforce HTTPS"** is checked at https://github.com/liza-bam/207/settings/pages (cert was issued earlier — should be ON now).
 5. **Inline-style sweep, round 2** — `wizard.jsx` and `tweaks-panel.jsx` still have inline `style={{}}` props I didn't touch. Lower priority since they're interactive panels.
+### 2026-06-13 — Contact form delivery pipeline
+
+**Flow:** site form → Cloudflare Worker → Brevo API → email to recipients.
+
+- **Form code:** `js/sections4.jsx` Booking component, posts JSON to `FORM_ENDPOINT` in `js/data.js`.
+- **Worker:** `worker/contact.js`. Lives at `https://207housekeeping-forms.alexandra-tayts.workers.dev/`. Holds the Brevo API key as a Cloudflare secret. Edit recipients (`TO`, `CC`, `FROM_EMAIL`, `FROM_NAME`) at lines 7–10, then redeploy in Cloudflare dashboard.
+- **Brevo:** Transactional email API. Domain `207housekeeping.com` is verified (SPF, DKIM brevo1/brevo2 CNAMEs, DMARC, brevo-code TXT in Hover DNS).
+- **Secret:** Cloudflare Worker → Settings → Variables and Secrets → name **`BREVO_API_KEY`** (exact). Value = full Brevo API key starting `xkeysib-…` (full string including the `-yiqMB7L7…` suffix — easy to truncate by accident).
+- **Recipients today:** `support@207housekeeping.com` (To), `sandy@tayts.com` (CC).
+- **Wizard:** still on the dummy `setDone(true)` — not yet wired to this pipeline.
+
 ### 2026-06-09 — punch list (active)
 
 Bugs/changes Liza flagged in rapid succession; tackled in one batch:
