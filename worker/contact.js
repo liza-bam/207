@@ -51,8 +51,10 @@ export default {
       const replyRes = await sendBrevo(env, {
         sender: { email: FROM_EMAIL, name: FROM_NAME },
         to: [{ email: f.email, name: f.name }],
+        replyTo: { email: TO, name: FROM_NAME },
         subject: "We got your message — 207 HouseKeeping",
         htmlContent: renderAutoreply(f),
+        textContent: renderAutoreplyText(f),
       });
       if (!replyRes.ok) return json({ ok: true, warning: "Autoreply failed", detail: replyRes.detail });
     }
@@ -136,6 +138,30 @@ function renderNotification(f) {
     </table>
   </td></tr>
 </table>`;
+}
+
+// ---------- Autoreply plain-text fallback ----------
+// Both HTML and plain-text versions sent — significantly improves
+// deliverability (Apple Mail / Gmail spam filters prefer multipart).
+function renderAutoreplyText(f) {
+  const firstName = (f.name.split(" ")[0] || "neighbor");
+  return [
+    `Thanks, ${firstName} — your message is in our hands.`,
+    ``,
+    `We'll come back to you the same day, usually within a couple of hours.`,
+    `No phone tree, no ticket number — just a real Maine neighbor.`,
+    ``,
+    `What happens next:`,
+    `  1. We read your request.`,
+    `  2. We reach back out by text or call, whichever you prefer.`,
+    `  3. You get a flat-rate quote.`,
+    ``,
+    `Need us sooner? Call or text (207) 598-9215.`,
+    ``,
+    `— 207 HouseKeeping`,
+    `Central Maine — Portland · Augusta · Farmington · Windham`,
+    `https://207housekeeping.com`,
+  ].join("\n");
 }
 
 // ---------- Autoreply (to submitter) ----------
