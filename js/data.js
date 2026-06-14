@@ -4,7 +4,7 @@
 (function () {
   const PHONE_DISPLAY = "(207) 598-9215";
   const PHONE_TEL = "+12075989215";
-  const EMAIL = "info@207housekeeping.com";
+  const EMAIL = "support@207housekeeping.com";
   const FB_URL = "https://www.facebook.com/housekeeping207/";
 
   // Form delivery via our Cloudflare Worker (worker/contact.js).
