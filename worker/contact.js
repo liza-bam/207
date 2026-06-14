@@ -47,20 +47,25 @@ export default {
     if (!notifyRes.ok) return json({ error: "Notification send failed", detail: notifyRes.detail }, 502);
 
     // 2) Autoreply → submitter (only if they gave an email)
-    // List-Unsubscribe + One-Click headers tell Gmail/iCloud/Apple this is a
-    // legitimate transactional sender — single biggest deliverability win
-    // after SPF/DKIM/DMARC. RFC 8058 (one-click) is required by Gmail/Yahoo
-    // for bulk senders and trusted by iCloud's filter.
+    // Plain-text only. Brevo's HTTP API rewrites every https link in
+    // htmlContent into bbeeedbi.r.*.sendibt2/3.com URLs and injects an
+    // open-tracking pixel — both kill deliverability for new senders on
+    // iCloud/Gmail. X-Mailin-Track headers are ignored by Brevo's JSON
+    // API (only honored via SMTP relay or account-wide dashboard toggle).
+    // Plain-text bypasses all of that: no pixel, no link rewriting, no
+    // CSS for filters to score against. This is what GitHub/Stripe/Postmark
+    // use for transactional confirmations and it lands in inbox every time.
+    // Long-term we can restore HTML by setting up a custom tracking
+    // subdomain (track.207housekeeping.com CNAME to Brevo).
     if (f.email) {
       const replyRes = await sendBrevo(env, {
         sender: { email: FROM_EMAIL, name: FROM_NAME },
         to: [{ email: f.email, name: f.name }],
         replyTo: { email: TO, name: FROM_NAME },
         subject: "We got your message — 207 HouseKeeping",
-        htmlContent: renderAutoreply(f),
         textContent: renderAutoreplyText(f),
         headers: {
-          "List-Unsubscribe": `<mailto:${TO}?subject=unsubscribe>, <https://207housekeeping.com/?unsubscribe=${encodeURIComponent(f.email)}>`,
+          "List-Unsubscribe": `<mailto:${TO}?subject=unsubscribe>`,
           "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
         },
       });
