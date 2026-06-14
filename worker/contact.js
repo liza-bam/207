@@ -47,6 +47,10 @@ export default {
     if (!notifyRes.ok) return json({ error: "Notification send failed", detail: notifyRes.detail }, 502);
 
     // 2) Autoreply → submitter (only if they gave an email)
+    // List-Unsubscribe + One-Click headers tell Gmail/iCloud/Apple this is a
+    // legitimate transactional sender — single biggest deliverability win
+    // after SPF/DKIM/DMARC. RFC 8058 (one-click) is required by Gmail/Yahoo
+    // for bulk senders and trusted by iCloud's filter.
     if (f.email) {
       const replyRes = await sendBrevo(env, {
         sender: { email: FROM_EMAIL, name: FROM_NAME },
@@ -55,6 +59,10 @@ export default {
         subject: "We got your message — 207 HouseKeeping",
         htmlContent: renderAutoreply(f),
         textContent: renderAutoreplyText(f),
+        headers: {
+          "List-Unsubscribe": `<mailto:${TO}?subject=unsubscribe>, <https://207housekeeping.com/?unsubscribe=${encodeURIComponent(f.email)}>`,
+          "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+        },
       });
       if (!replyRes.ok) return json({ ok: true, warning: "Autoreply failed", detail: replyRes.detail });
     }
