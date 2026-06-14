@@ -164,8 +164,8 @@ function Booking({ formRef }) {
               </div> :
 
             <form onSubmit={submit}>
-                {/* Honeypot — bots fill this; worker drops any submission where it's non-empty */}
-                <input className="honeypot" type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+                {/* Honeypot — text input; humans never see it, bots fill it. Worker drops any submission where it's non-empty. */}
+                <input className="honeypot" type="text" name="botcheck" tabIndex={-1} autoComplete="off" aria-hidden="true" defaultValue="" />
                 <div className="row2">
                   <div className="field"><label>Your name</label><input className="input" required value={form.name} onChange={set("name")} placeholder="Jane Smith" /></div>
                   <div className="field"><label>Town</label><input className="input" required value={form.town} onChange={set("town")} placeholder="Rangeley" /></div>
